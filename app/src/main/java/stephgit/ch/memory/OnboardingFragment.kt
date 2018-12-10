@@ -20,7 +20,7 @@ class OnboardingFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_onboarding, container, false)
-
+        setHasOptionsMenu(false)
         view.findViewById<Button>(R.id.btn_goto_registration).setOnClickListener { callback.goToRegistration() }
         return view
     }

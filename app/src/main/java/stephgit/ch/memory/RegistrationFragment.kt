@@ -7,15 +7,20 @@ import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_registration.*
+import java.lang.RuntimeException
 
 class RegistrationFragment: Fragment() {
 
-    companion object {
-        fun newIntent(ctx: Context) = Intent(ctx, RegistrationFragment::class.java)
+    private lateinit var callback: OnboardingFlow
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        callback = context as? OnboardingFlow ?: throw RuntimeException("Missing OnbordingFlow implementation")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
+
         val view = inflater.inflate(R.layout.fragment_registration, container, false)
         return view
     }
@@ -23,6 +28,7 @@ class RegistrationFragment: Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.onboarding_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -33,7 +39,7 @@ class RegistrationFragment: Fragment() {
                     .putString("KEY_TOKEN", "someToken")
                     .apply()
 
-                startActivity(AGBActivity.newIntent(requireContext()))
+                callback.goToAgb()
             }
             return true
         }
