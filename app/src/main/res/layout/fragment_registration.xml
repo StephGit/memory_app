@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingStart="36dp"
+        android:paddingEnd="36dp">
+
+    <EditText
+            android:id="@+id/et_username"
+            android:hint="Username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/et_password"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:inputType="textPersonName"/>
+
+    <EditText
+            android:id="@+id/et_password"
+            android:hint="Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/et_username"
+            app:layout_constraintBottom_toTopOf="@id/et_password_confirmation"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:inputType="textPassword"/>
+
+    <EditText
+            android:id="@+id/et_password_confirmation"
+            android:hint="Passwortbestätigung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/et_password"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:inputType="textPassword"/>
+
+</android.support.constraint.ConstraintLayout>
