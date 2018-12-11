@@ -20,7 +20,6 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
         }
 
 
-
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -40,6 +39,13 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.onboarding, AGBFragment())
+            .commit()
+    }
+
+    override fun goToProfile() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.onboarding, ProfileFragment())
             .commit()
     }
 

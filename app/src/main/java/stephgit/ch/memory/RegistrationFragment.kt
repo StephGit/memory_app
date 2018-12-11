@@ -34,11 +34,6 @@ class RegistrationFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             if (validate()) {
-                PreferenceManager.getDefaultSharedPreferences(requireContext())
-                    .edit()
-                    .putString("KEY_TOKEN", "someToken")
-                    .apply()
-
                 callback.goToAgb()
             }
             return true

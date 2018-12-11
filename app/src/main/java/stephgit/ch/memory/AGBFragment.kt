@@ -1,20 +1,21 @@
 package stephgit.ch.memory
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
-import kotlinx.android.synthetic.main.fragment_agb.*
+import android.widget.TextView
 
 
 class AGBFragment: Fragment() {
 
-    companion object {
-        fun newIntent(ctx: Context) = Intent(ctx, AGBFragment::class.java)
-    }
+    private lateinit var callback: OnboardingFlow
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        callback = context as? OnboardingFlow ?: throw RuntimeException("Missing OnbordingFlow implementation")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -23,7 +24,9 @@ class AGBFragment: Fragment() {
         val agbText = resources.openRawResource(R.raw.agb).bufferedReader().use {
             it.readText()
         }
-        tv_agb.text = Html.fromHtml(agbText).toString()
+
+        var tv_ag = view.findViewById<TextView>(R.id.tv_agb)
+        tv_ag.text = Html.fromHtml(agbText).toString()
         return view
     }
 
@@ -35,7 +38,7 @@ class AGBFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             if (validate()) {
-                startActivity(ProfileActivity.newIntent(requireContext()))
+                callback.goToProfile()
                 return true
             }
         }

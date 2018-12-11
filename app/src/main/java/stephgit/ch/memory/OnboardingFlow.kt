@@ -4,4 +4,5 @@ interface OnboardingFlow {
 
     fun goToRegistration()
     fun goToAgb()
+    fun goToProfile()
 }
