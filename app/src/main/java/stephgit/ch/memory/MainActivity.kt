@@ -63,41 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.d("Lifecycle onPause", "paused")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("Lifecycle onStart", "started")
-    }
-
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("Lifecycle onRestart", "restarted")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("Lifecycle onResume", "resumed")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("Lifecycle onStop", "stopped")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("Lifecycle onDestroy", "destoryed")
-        if (tmpInstanceState != null) {
-            onSaveInstanceState(tmpInstanceState)
-        }
-    }
-
-
 
     fun flipCard(view: View) {
         val button = view as Button
@@ -131,13 +96,16 @@ class MainActivity : AppCompatActivity() {
             validateCards()
         }
 
-        tvScore.text = "Score: ${++counter}"
     }
 
     private fun validateCards() {
         if(firstCard!!.text == secondCard!!.text) {
             matchedCards.add(firstCard!!)
             matchedCards.add(secondCard!!)
+            tvScore.text = "Score: ${++counter}"
+        } else {
+            flipDown(firstCard!!)
+            flipDown(secondCard!!)
         }
     }
 
