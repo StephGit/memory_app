@@ -10,267 +10,294 @@
         android:id="@+id/game_board">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:id="@+id/sum_board">
 
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
+        <TextView
+                android:id="@+id/tv_congrat"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:text="Congrats!"
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:textAlignment="center"/>
 
     </LinearLayout>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:id="@+id/game_play_board"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
+                android:orientation="horizontal">
 
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
 
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
 
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
+                android:orientation="horizontal">
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+            <Button
+                    android:layout_margin="20dp"
+                    android:layout_width="48dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:onClick="flipCard"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_score"
+                android:text="Score_0"
+                android:layout_gravity="center"/>
 
     </LinearLayout>
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@android:color/holo_green_dark"
-                />
-
-    </LinearLayout>
-    
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_score"
-            android:text="Score_0"
-            android:layout_gravity="center"/>
 </LinearLayout>

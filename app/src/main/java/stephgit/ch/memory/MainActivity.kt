@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var counter = 0
+    private lateinit var gameBoard: LinearLayout
     private lateinit var tvScore: TextView
     private var checkInstance: String = "No Bundle available"
     private var tmpInstanceState: Bundle? = null
@@ -33,7 +36,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tvScore = findViewById<TextView>(R.id.tv_score)
+        tvScore = findViewById(R.id.tv_score)
+        gameBoard = findViewById(R.id.game_play_board)
         val emoijs = mutableListOf("🐵","🐶","🐱","🐻","🦁","🐮","🐨","🐷","🐸","🐔","🦆","🦅","🦉","🦄","🐙","🐘","🦍","🦓")
 
         val tmpCards = mutableListOf<Button>()
@@ -68,7 +72,23 @@ class MainActivity : AppCompatActivity() {
         val button = view as Button
 
         if (button.text.toString().isBlank()) {
+
+            if (firstCard != null && secondCard != null) {
+                flipDown(firstCard!!)
+                flipDown(secondCard!!)
+                firstCard = null
+                secondCard = null
+            }
+
             flipUp(button)
+
+            if (firstCard == null) {
+                firstCard = button
+            } else if (secondCard == null) {
+                secondCard = button
+                validateCards()
+            }
+
         } else {
             flipDown(button)
         }
@@ -84,18 +104,6 @@ class MainActivity : AppCompatActivity() {
     private fun flipUp(button: Button) {
         button.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
         button.text = cards[button]
-        if (firstCard != null && secondCard != null) {
-            flipDown(firstCard!!)
-            flipDown(secondCard!!)
-            firstCard = null
-            secondCard = null
-        } else if (firstCard == null) {
-            firstCard = button
-        } else if (secondCard == null) {
-            secondCard = button
-            validateCards()
-        }
-
     }
 
     private fun validateCards() {
@@ -103,9 +111,16 @@ class MainActivity : AppCompatActivity() {
             matchedCards.add(firstCard!!)
             matchedCards.add(secondCard!!)
             tvScore.text = "Score: ${++counter}"
-        } else {
-            flipDown(firstCard!!)
-            flipDown(secondCard!!)
+            validateGame()
+        }
+    }
+
+    private fun validateGame() {
+        if (matchedCards.count() == cards.count()) {
+            // TODO move to fragments
+
+
+
         }
     }
 
