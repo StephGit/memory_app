@@ -35,7 +35,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
             .commit()
     }
 
-    override fun goToAgb() {
+    override fun goToAgb(player: Player) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.onboarding, AGBFragment())

@@ -3,6 +3,6 @@ package stephgit.ch.memory
 interface OnboardingFlow {
 
     fun goToRegistration()
-    fun goToAgb()
+    fun goToAgb(player: Player)
     fun goToProfile()
 }

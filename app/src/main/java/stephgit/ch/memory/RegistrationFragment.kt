@@ -1,9 +1,7 @@
 package stephgit.ch.memory
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_registration.*
@@ -34,7 +32,7 @@ class RegistrationFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             if (validate()) {
-                callback.goToAgb()
+                callback.goToAgb(Player(et_username.text.toString().trim(), et_password.text.toString().trim()))
             }
             return true
         }
@@ -42,12 +40,17 @@ class RegistrationFragment: Fragment() {
     }
 
     fun validate(): Boolean {
-        val username = et_username.text.toString().trim()
+        val username: String = et_username.text.toString().trim()
+        val password: String = et_password.text.toString().trim()
+        val passwordConf: String = et_password_confirmation.text.toString().trim()
         if (username.isBlank()) {
             et_username.error = "Username darf nicht leer sein"
             return false
+        } else if (password.isBlank()) {
+            et_password.error = "Passwort darf nicht leer sein"
+        } else if (passwordConf != password) {
+            et_password_confirmation.error = "Password-Bestätigung muss dem Passwort entsprechen"
         }
-
         return true
     }
 
