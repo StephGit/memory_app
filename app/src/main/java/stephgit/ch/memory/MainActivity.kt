@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import stephgit.ch.memory.persistence.entity.Player
+import stephgit.ch.memory.persistence.repository.HistoryRepository
 import java.util.*
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
@@ -19,34 +21,25 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
         setContentView(R.layout.activity_main)
 
 //        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.main, GamePlayFragment())
-//                .commit()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main, GamePlayFragment())
+                .commit()
 //        }
 //        else {
 
-        // TODO move to login
 
-        var player : Player = Player("Hans", "df")
-        val historyRepository: HistoryRepository = HistoryRepository(this)
-        historyRepository.saveUser(player)
-        historyRepository.loadUsers()
-
-
-        val items =
-            mutableListOf(
-                ScoreListItem("Hans", Date(), "12")
-        ,ScoreListItem("Peter", Date(), "10"))
-        val customAdapter = ScoreAdapter(this, 0, items)
-        lv_history.adapter = customAdapter
-//        list.setOnItemClickListener { parent, view, position, id ->
-//            someActionWithItem(customAdapter.getItem(position))
-//        }
+//        val items =
+//            mutableListOf(
+//                ScoreListItem("Hans", Date(), "12")
+//        ,ScoreListItem("Peter", Date(), "10"))
+//        val customAdapter = ScoreAdapter(this, 0, items)
+//        lv_history.adapter = customAdapter
+////        list.setOnItemClickListener { parent, view, position, id ->
+////            someActionWithItem(customAdapter.getItem(position))
+////        }
 
     }
-
-
 
     override fun goToResult(score: String) {
         var bundle = Bundle()
@@ -58,7 +51,5 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             .replace(R.id.main, fragment)
             .commit()
     }
-
-
 
 }

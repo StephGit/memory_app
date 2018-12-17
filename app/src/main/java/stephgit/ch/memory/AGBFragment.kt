@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
 import android.widget.TextView
+import stephgit.ch.memory.persistence.entity.Player
 
 
 class AGBFragment: Fragment() {
 
     private lateinit var callback: OnboardingFlow
+    private lateinit var player: Player
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_registration.*
+import stephgit.ch.memory.persistence.entity.Player
+import stephgit.ch.memory.persistence.repository.PlayerRepository
 import java.lang.RuntimeException
 
 class RegistrationFragment: Fragment() {
@@ -31,15 +33,30 @@ class RegistrationFragment: Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
-            if (validate()) {
-                callback.goToAgb(Player(et_username.text.toString().trim(), et_password.text.toString().trim()))
+            if (isValid() && isUniqueUser()) {
+                callback.goToAgb(
+                    Player(
+                        et_username.text.toString().trim(),
+                        et_password.text.toString().trim()
+                    )
+                )
             }
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun validate(): Boolean {
+    private fun isUniqueUser(): Boolean {
+        val playerRepository: PlayerRepository = PlayerRepository(super.getContext()!!.applicationContext)
+        var p = playerRepository.findPlayerByUserName(et_username.text.toString().trim())
+
+        if (p?.id == null) return true
+
+        et_username.error = "Username ist bereits vergeben!"
+        return false
+    }
+
+    fun isValid(): Boolean {
         val username: String = et_username.text.toString().trim()
         val password: String = et_password.text.toString().trim()
         val passwordConf: String = et_password_confirmation.text.toString().trim()
@@ -48,8 +65,10 @@ class RegistrationFragment: Fragment() {
             return false
         } else if (password.isBlank()) {
             et_password.error = "Passwort darf nicht leer sein"
+            return false
         } else if (passwordConf != password) {
-            et_password_confirmation.error = "Password-Bestätigung muss dem Passwort entsprechen"
+            et_password_confirmation.error = "Passwort-Bestätigung muss dem Passwort entsprechen"
+            return false
         }
         return true
     }

@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
+import stephgit.ch.memory.persistence.entity.Player
+import stephgit.ch.memory.persistence.repository.PlayerRepository
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
+    private lateinit var player: Player
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     }
 
     override fun goToAgb(player: Player) {
+        this.player = player
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.onboarding, AGBFragment())
@@ -47,6 +51,18 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
             .beginTransaction()
             .replace(R.id.onboarding, ProfileFragment())
             .commit()
+    }
+
+    override fun finishOnboarding() {
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putString("KEY_TOKEN", "someToken")
+            .apply()
+
+        val playerRepository: PlayerRepository = PlayerRepository(this.applicationContext)
+        playerRepository.saveUser(player)
+
+        startActivity(MainActivity.newIntent(this))
     }
 
 }

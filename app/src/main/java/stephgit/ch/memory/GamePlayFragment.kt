@@ -33,21 +33,19 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-//        if (savedInstanceState == null) {
-            val view = inflater.inflate(R.layout.fragment_game_play_board, container, false)
-            tvScore = view.findViewById(R.id.tv_score)
+        val view = inflater.inflate(R.layout.fragment_game_play_board, container, false)
+        tvScore = view.findViewById(R.id.tv_score)
 
-            val emoijs = mutableListOf("🐵","🐶","🐱","🐻","🦁","🐮","🐨","🐷","🐸","🐔","🦆","🦅","🦉","🦄","🐙","🐘","🦍","🦓")
+        val emoijs = mutableListOf("\uD83D\uDCA9","\uD83E\uDD21","\uD83D\uDC79","\uD83D\uDC7A","\uD83D\uDC7B","\uD83D\uDC7D","\uD83D\uDC7E","\uD83E\uDD16","\uD83D\uDC27","\uD83C\uDF83","☢","☣","\uD83C\uDF7A","\uD83E\uDD43","☠","\uD83D\uDCA3","\uD83D\uDD95","\uD83E\uDDB7")
 
-            val tmpCards = mutableListOf<Button>()
-            findButtons(tmpCards, view.findViewById(R.id.game_play_board))
+        val tmpCards = mutableListOf<Button>()
+        findButtons(tmpCards, view.findViewById(R.id.game_play_board))
 
-            for ( i in 0  until tmpCards.size / 2) {
-                val emoji = emoijs.removeAt(Random().nextInt(emoijs.size))
-                cards[tmpCards.removeAt(Random().nextInt(tmpCards.size))] = emoji
-                cards[tmpCards.removeAt(Random().nextInt(tmpCards.size))] = emoji
-            }
-//        }
+        for (i in 0 until tmpCards.size / 2) {
+            val emoji = emoijs.removeAt(Random().nextInt(emoijs.size))
+            cards[tmpCards.removeAt(Random().nextInt(tmpCards.size))] = emoji
+            cards[tmpCards.removeAt(Random().nextInt(tmpCards.size))] = emoji
+        }
 
         return view
     }
@@ -116,7 +114,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     }
 
     private fun validateGame() {
-        if (matchedCards.count() != cards.count()) {
+        if (matchedCards.count() == cards.count()) {
             callback.goToResult(tvScore.text.toString())
         }
     }
