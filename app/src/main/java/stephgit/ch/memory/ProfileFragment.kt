@@ -1,8 +1,12 @@
 package stephgit.ch.memory
 
+import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -13,6 +17,10 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import android.view.*
 import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.os.Environment.getExternalStorageDirectory
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.webkit.PermissionRequest
+import android.widget.Button
 import java.io.File
 
 
@@ -23,6 +31,8 @@ class ProfileFragment: Fragment()  {
     private val REQUEST_IMAGE_CAPTURE = 1
 
     private val PROFILE_IMAGE_FILE_NAME = "profile_image.png"
+    private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2
+    private val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 3
     private val filesDir = Environment.getExternalStorageDirectory()
 
     override fun onAttach(context: Context?) {
@@ -31,13 +41,12 @@ class ProfileFragment: Fragment()  {
     }
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        bt_profile_button.setOnClickListener {
+        view.findViewById<Button>(R.id.bt_profile_button).setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (takePictureIntent.resolveActivity(requireContext().packageManager) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
@@ -49,8 +58,29 @@ class ProfileFragment: Fragment()  {
             iv_profile_image.setImageBitmap(it)
         }
 
-
+        checkForPermissions(READ_EXTERNAL_STORAGE, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
+        checkForPermissions(WRITE_EXTERNAL_STORAGE, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE)
         return view
+    }
+
+
+
+    private fun checkForPermissions(requiredPermission: String, permissionRequest: Int) {
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                requiredPermission)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                    requiredPermission)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                ActivityCompat.requestPermissions(requireActivity(),
+                    arrayOf(requiredPermission),
+                    permissionRequest)
+            }
+        }
     }
 
 
