@@ -1,4 +1,4 @@
-package stephgit.ch.memory.persistence.entity
+package ch.stephgit.memory.persistence.entity
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

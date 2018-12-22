@@ -1,7 +1,7 @@
-package stephgit.ch.memory.persistence.dao
+package ch.stephgit.memory.persistence.dao
 
 import android.arch.persistence.room.*
-import stephgit.ch.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.entity.Player
 
 @Dao
 interface PlayerDAO {

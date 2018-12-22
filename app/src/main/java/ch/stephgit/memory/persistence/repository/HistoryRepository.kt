@@ -1,9 +1,9 @@
-package stephgit.ch.memory.persistence.repository
+package ch.stephgit.memory.persistence.repository
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import stephgit.ch.memory.persistence.AppDatabase
-import stephgit.ch.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.AppDatabase
+import ch.stephgit.memory.persistence.entity.Player
 
 class HistoryRepository(private val applicationContext: Context) {
 

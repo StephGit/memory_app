@@ -1,4 +1,4 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,8 @@ import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
 import android.widget.TextView
-import stephgit.ch.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.entity.Player
+import ch.stephgit.memory.R
 
 
 class AGBFragment: Fragment() {

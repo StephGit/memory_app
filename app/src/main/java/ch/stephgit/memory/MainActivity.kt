@@ -1,13 +1,10 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import stephgit.ch.memory.persistence.entity.Player
-import stephgit.ch.memory.persistence.repository.HistoryRepository
-import java.util.*
+import ch.stephgit.memory.R
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
 

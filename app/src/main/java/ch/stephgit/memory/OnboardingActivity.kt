@@ -1,11 +1,13 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
-import stephgit.ch.memory.persistence.entity.Player
-import stephgit.ch.memory.persistence.repository.PlayerRepository
+import ch.stephgit.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.repository.PlayerRepository
+import ch.stephgit.memory.R
+
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
@@ -59,7 +61,8 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
             .putString("KEY_TOKEN", "someToken")
             .apply()
 
-        val playerRepository: PlayerRepository = PlayerRepository(this.applicationContext)
+        val playerRepository: PlayerRepository =
+            PlayerRepository(this.applicationContext)
         playerRepository.saveUser(player)
 
         startActivity(MainActivity.newIntent(this))

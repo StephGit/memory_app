@@ -1,4 +1,4 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.content.Context
 import android.support.annotation.LayoutRes
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import ch.stephgit.memory.R
 import java.util.*
 
 data class ScoreListItem(val name: String, val date: Date, val score: String)

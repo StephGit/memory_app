@@ -1,12 +1,12 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_registration.*
-import stephgit.ch.memory.persistence.entity.Player
-import stephgit.ch.memory.persistence.repository.PlayerRepository
+import ch.stephgit.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.repository.PlayerRepository
 import java.lang.RuntimeException
 
 class RegistrationFragment: Fragment() {
@@ -47,7 +47,8 @@ class RegistrationFragment: Fragment() {
     }
 
     private fun isUniqueUser(): Boolean {
-        val playerRepository: PlayerRepository = PlayerRepository(super.getContext()!!.applicationContext)
+        val playerRepository: PlayerRepository =
+            PlayerRepository(super.getContext()!!.applicationContext)
         var p = playerRepository.findPlayerByUserName(et_username.text.toString().trim())
 
         if (p?.id == null) return true

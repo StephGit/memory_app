@@ -1,9 +1,9 @@
-package stephgit.ch.memory.persistence
+package ch.stephgit.memory.persistence
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import stephgit.ch.memory.persistence.dao.PlayerDAO
-import stephgit.ch.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.dao.PlayerDAO
+import ch.stephgit.memory.persistence.entity.Player
 
 @Database(entities = arrayOf(Player::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {

@@ -1,6 +1,6 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
-import stephgit.ch.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.entity.Player
 
 interface OnboardingFlow {
 

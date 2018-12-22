@@ -6,5 +6,7 @@
             android:id="@+id/tv_agb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="36dp"
+            android:paddingEnd="36dp"
             android:text=""/>
 </android.support.constraint.ConstraintLayout>

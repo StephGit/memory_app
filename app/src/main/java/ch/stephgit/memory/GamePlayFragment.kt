@@ -1,4 +1,4 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import ch.stephgit.memory.R
 import java.util.*
 
 class GamePlayFragment: Fragment(), View.OnClickListener {

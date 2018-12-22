@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="stephgit.ch.memory">
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+          package="ch.stephgit.memory">
 
     <application
             android:allowBackup="true"
@@ -12,13 +9,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="ch.stephgit.memory.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-                android:name=".OnboardingActivity"
+                android:name="ch.stephgit.memory.OnboardingActivity"
                 android:label="@string/title_activity_onboarding"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

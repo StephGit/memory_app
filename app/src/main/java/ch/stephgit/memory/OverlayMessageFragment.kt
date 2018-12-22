@@ -1,4 +1,4 @@
-package stephgit.ch.memory
+package ch.stephgit.memory
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import ch.stephgit.memory.R
 
 class OverlayMessageFragment: Fragment() {
 
@@ -18,7 +19,11 @@ class OverlayMessageFragment: Fragment() {
         var message = "Wow! You scored " + this.arguments?.getString("score")
         textView.text =  message
 
-        view.findViewById<Button>(R.id.btn_goto_newgame).setOnClickListener { startActivity(MainActivity.newIntent(requireContext()))}
+        view.findViewById<Button>(R.id.btn_goto_newgame).setOnClickListener { startActivity(
+            MainActivity.newIntent(
+                requireContext()
+            )
+        )}
         return view
     }
 
