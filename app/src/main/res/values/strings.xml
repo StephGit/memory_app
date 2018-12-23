@@ -5,10 +5,14 @@
     <string name="registration">registration</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="password_confirmation">Passwortbestätigung</string>
-    <string name="next">Weiter</string>
-    <string name="score_0">Score_0</string>
+    <string name="password_confirmation">Password confirmation</string>
+    <string name="next">Next</string>
+    <string name="score_0">Flips</string>
     <string name="start_new_game">Start new game</string>
-    <string name="foto_aufnehmen">Foto aufnehmen</string>
+    <string name="foto_aufnehmen">Take a picture</string>
     <string name="profile_image">Profile Image</string>
+    <string name="game">Game</string>
+    <string name="history">History</string>
+    <string name="ranking">Ranking</string>
+    <string name="profile">Profile</string>
 </resources>

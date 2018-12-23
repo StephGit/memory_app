@@ -16,7 +16,7 @@ class OverlayMessageFragment: Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_overlay_message, container, false)
         val textView = view.findViewById<TextView>(R.id.tv_overlay_message)
-        var message = "Wow! You scored " + this.arguments?.getString("score")
+        var message = "Wow! You scored " + this.arguments?.getInt("flips")
         textView.text =  message
 
         view.findViewById<Button>(R.id.btn_goto_newgame).setOnClickListener { startActivity(

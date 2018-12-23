@@ -10,13 +10,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import ch.stephgit.memory.R
+import ch.stephgit.memory.R.drawable.*
 import java.util.*
 
 class GamePlayFragment: Fragment(), View.OnClickListener {
 
 
-    private lateinit var tvScore: TextView
+    private lateinit var tvFlips: TextView
     private var cards = mutableMapOf<Button, String>()
     private var counter = 0
     private var firstCard: Button? = null
@@ -35,7 +35,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_game_play_board, container, false)
-        tvScore = view.findViewById(R.id.tv_score)
+        tvFlips = view.findViewById(R.id.tv_score)
 
         val emoijs = mutableListOf("\uD83D\uDCA9","\uD83E\uDD21","\uD83D\uDC79","\uD83D\uDC7A","\uD83D\uDC7B","\uD83D\uDC7D","\uD83D\uDC7E","\uD83E\uDD16","\uD83D\uDC27","\uD83C\uDF83","☢","☣","\uD83C\uDF7A","\uD83E\uDD43","☠","\uD83D\uDCA3","\uD83D\uDD95","\uD83E\uDDB7")
 
@@ -95,28 +95,29 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     private fun flipDown(button: Button) {
         if (!matchedCards.contains(button)) {
             button.text = ""
-            button.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.holo_green_light, null))
+            button.setBackgroundColor(ic_card)
 
         }
     }
 
     private fun flipUp(button: Button) {
         button.text = cards[button]
-        button.setBackgroundColor(ResourcesCompat.getColor(resources, android.R.color.holo_blue_bright, null))
+        button.setBackgroundColor(ic_flipcard)
+        tvFlips.text = "Flips: ${++counter}"
     }
 
     private fun validateCards() {
         if(firstCard!!.text == secondCard!!.text) {
             matchedCards.add(firstCard!!)
             matchedCards.add(secondCard!!)
-            tvScore.text = "Score: ${++counter}"
+
             validateGame()
         }
     }
 
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
-            callback.goToResult(tvScore.text.toString())
+            callback.goToResult(counter)
         }
     }
 }

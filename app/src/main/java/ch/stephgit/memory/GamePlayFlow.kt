@@ -2,5 +2,5 @@ package ch.stephgit.memory
 
 interface GamePlayFlow {
 
-    fun goToResult(score: String)
+    fun goToResult(flips: Int)
 }
