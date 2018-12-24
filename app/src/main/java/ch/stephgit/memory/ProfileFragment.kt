@@ -23,7 +23,10 @@ class ProfileFragment: Fragment()  {
 
     private val profileImage = "profile_image.png"
     private lateinit var ivImage: ImageView
-//    private val filesDir = Environment.getExternalStorageDirectory()
+
+    companion object {
+        fun newFragment(): Fragment = ProfileFragment()
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -96,8 +99,8 @@ class ProfileFragment: Fragment()  {
             imageBitmap?.let {
                 ivImage.setImageBitmap(it)
                 val file = File(requireContext().filesDir, profileImage)
-                file.outputStream().use { it ->
-                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                file.outputStream().use { f ->
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, f)
                 }
             }
         }

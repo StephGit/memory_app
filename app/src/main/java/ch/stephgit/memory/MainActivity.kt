@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             if (!it.isChecked) {
                 it.isChecked = true
                 when (it.itemId) {
-                    R.id.nav_action_game -> replaceFragment(GamePlayFragment())
+                    R.id.nav_action_game -> replaceFragment(GamePlayFragment.newFragment())
                     R.id.nav_action_history -> {}
                     R.id.nav_action_ranking -> {}
                     R.id.nav_action_profile -> {}
@@ -87,14 +87,11 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
     }
 
     override fun goToResult(flips: Int) {
-        var bundle = Bundle()
+        val bundle = Bundle()
         bundle.putInt("flips", flips)
-        var fragment = OverlayMessageFragment()
+        val fragment = OverlayMessageFragment()
         fragment.arguments = bundle
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main, fragment)
-            .commit()
+        replaceFragment(fragment)
     }
 
 }

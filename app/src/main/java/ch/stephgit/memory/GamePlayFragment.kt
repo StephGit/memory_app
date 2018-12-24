@@ -3,14 +3,12 @@ package ch.stephgit.memory
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.res.ResourcesCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import ch.stephgit.memory.R.drawable.*
 import java.util.*
 
 class GamePlayFragment: Fragment(), View.OnClickListener {
@@ -23,8 +21,11 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     private var secondCard: Button? = null
     private var matchedCards = mutableListOf<Button>()
 
-
     private lateinit var callback: GamePlayFlow
+
+    companion object {
+        fun newFragment(): Fragment = GamePlayFragment()
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -66,7 +67,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
         flipCard(v)
     }
 
-    fun flipCard(view: View) {
+    private fun flipCard(view: View) {
         val button = view as Button
 
         if (button.text.toString().isBlank()) {
@@ -95,14 +96,13 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     private fun flipDown(button: Button) {
         if (!matchedCards.contains(button)) {
             button.text = ""
-            button.setBackgroundColor(ic_card)
-
+            button.background = resources.getDrawable(R.drawable.ic_card, null)
         }
     }
 
     private fun flipUp(button: Button) {
         button.text = cards[button]
-        button.setBackgroundColor(ic_flipcard)
+        button.background = resources.getDrawable(R.drawable.ic_flipcard, null)
         tvFlips.text = "Flips: ${++counter}"
     }
 

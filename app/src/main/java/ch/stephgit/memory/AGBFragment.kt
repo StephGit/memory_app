@@ -7,13 +7,16 @@ import android.text.Html
 import android.view.*
 import android.widget.TextView
 import ch.stephgit.memory.persistence.entity.Player
-import ch.stephgit.memory.R
 
 
 class AGBFragment: Fragment() {
 
     private lateinit var callback: OnboardingFlow
     private lateinit var player: Player
+
+    companion object {
+        fun newFragment(): Fragment = AGBFragment()
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -28,8 +31,8 @@ class AGBFragment: Fragment() {
             it.readText()
         }
 
-        var tv_ag = view.findViewById<TextView>(R.id.tv_agb)
-        tv_ag.text = Html.fromHtml(agbText).toString()
+        val tvAgb = view.findViewById<TextView>(R.id.tv_agb)
+        tvAgb.text = Html.fromHtml(agbText).toString()
         return view
     }
 

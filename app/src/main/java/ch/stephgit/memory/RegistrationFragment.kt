@@ -12,6 +12,11 @@ import java.lang.RuntimeException
 class RegistrationFragment: Fragment() {
 
     private lateinit var callback: OnboardingFlow
+    private lateinit var player: Player
+
+    companion object {
+        fun newFragment(): Fragment = RegistrationFragment()
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -21,8 +26,7 @@ class RegistrationFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
 
-        val view = inflater.inflate(R.layout.fragment_registration, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_registration, container, false)
     }
 
 
@@ -34,12 +38,7 @@ class RegistrationFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             if (isValid() && isUniqueUser()) {
-                callback.goToAgb(
-                    Player(
-                        et_username.text.toString().trim(),
-                        et_password.text.toString().trim()
-                    )
-                )
+                callback.goToAgb(player)
             }
             return true
         }
@@ -47,31 +46,37 @@ class RegistrationFragment: Fragment() {
     }
 
     private fun isUniqueUser(): Boolean {
-        val playerRepository: PlayerRepository =
-            PlayerRepository(super.getContext()!!.applicationContext)
-        var p = playerRepository.findPlayerByUserName(et_username.text.toString().trim())
+        val playerRepository = PlayerRepository(super.getContext()!!.applicationContext)
+        val p = playerRepository.findPlayerByUserName(et_username.text.toString().trim())
 
         if (p?.id == null) return true
 
-        et_username.error = "Username ist bereits vergeben!"
+        et_username.error = "Username is already used"
         return false
     }
 
-    fun isValid(): Boolean {
+    private fun isValid(): Boolean {
         val username: String = et_username.text.toString().trim()
         val password: String = et_password.text.toString().trim()
         val passwordConf: String = et_password_confirmation.text.toString().trim()
-        if (username.isBlank()) {
-            et_username.error = "Username darf nicht leer sein"
-            return false
-        } else if (password.isBlank()) {
-            et_password.error = "Passwort darf nicht leer sein"
-            return false
-        } else if (passwordConf != password) {
-            et_password_confirmation.error = "Passwort-Bestätigung muss dem Passwort entsprechen"
-            return false
+        when {
+            username.isBlank() -> {
+                et_username.error = "Username can't be empty!"
+                return false
+            }
+            password.isBlank() -> {
+                et_password.error = "Password can't be empty!"
+                return false
+            }
+            passwordConf != password -> {
+                et_password_confirmation.error = "Password-Confirmation must match password!"
+                return false
+            }
+            else -> {
+                player = Player(username, password)
+                return true
+            }
         }
-        return true
     }
 
 }

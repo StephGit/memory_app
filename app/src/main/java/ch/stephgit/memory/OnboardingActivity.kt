@@ -2,11 +2,11 @@ package ch.stephgit.memory
 
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import ch.stephgit.memory.persistence.entity.Player
 import ch.stephgit.memory.persistence.repository.PlayerRepository
-import ch.stephgit.memory.R
 
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
@@ -16,43 +16,41 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-        setSupportActionBar(toolbar);
-        supportActionBar?.title = ""
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
             startActivity(MainActivity.newIntent(this))
         }
 
-
         if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.onboarding, OnboardingFragment())
-                .commit()
+            replaceFragement(OnboardingFragment.newFragment())
         }
     }
 
-    override fun goToRegistration() {
+    private fun replaceFragement(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.onboarding, RegistrationFragment())
+            .replace(R.id.onboarding, fragment)
             .commit()
+    }
+
+    override fun goToLogin() {
+        replaceFragement(LoginFragment.newFragment())
+    }
+
+    override fun goToRegistration() {
+        replaceFragement(RegistrationFragment.newFragment())
     }
 
     override fun goToAgb(player: Player) {
         this.player = player
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.onboarding, AGBFragment())
-            .commit()
+        replaceFragement(AGBFragment.newFragment())
     }
 
     override fun goToProfile() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.onboarding, ProfileFragment())
-            .commit()
+        replaceFragement(ProfileFragment.newFragment())
     }
 
     override fun finishOnboarding() {
@@ -61,8 +59,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
             .putString("KEY_TOKEN", "someToken")
             .apply()
 
-        val playerRepository: PlayerRepository =
-            PlayerRepository(this.applicationContext)
+        val playerRepository = PlayerRepository(this.applicationContext)
         playerRepository.saveUser(player)
 
         startActivity(MainActivity.newIntent(this))

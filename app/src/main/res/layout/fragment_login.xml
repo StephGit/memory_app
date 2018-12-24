@@ -23,18 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/et_username"
-            app:layout_constraintBottom_toTopOf="@id/et_password_confirmation"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:inputType="textPassword"/>
-
-    <EditText
-            android:id="@+id/et_password_confirmation"
-            android:hint="@string/password_confirmation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/et_password"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             android:inputType="textPassword"/>
+
 
 </android.support.constraint.ConstraintLayout>
