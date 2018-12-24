@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_registration.*
 
 class LoginFragment : Fragment() {
 
-    private lateinit var player: Player
+    private var player: Player? = null
 
     companion object {
         fun newFragment(): Fragment = LoginFragment()
@@ -24,7 +24,8 @@ class LoginFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.onboarding_menu, menu)
-        menu?.getItem(R.id.action_next)?.title = "Login"
+        val menuItem = menu?.findItem(R.id.action_next)
+        menuItem?.title = "Login"
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -49,9 +50,12 @@ class LoginFragment : Fragment() {
         val playerRepository = PlayerRepository(requireContext().applicationContext)
         player = playerRepository.findPlayerByUserName(username)
 
-        if (player?.password != password) return false
+        if (player?.password != password) {
+            et_username.error = "Wrong username or password"
+            et_password.error = "Wrong username or password"
+            return false
+        }
         return true
-
     }
 
 }
