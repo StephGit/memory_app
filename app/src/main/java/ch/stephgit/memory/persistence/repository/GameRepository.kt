@@ -2,6 +2,7 @@ package ch.stephgit.memory.persistence.repository
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import ch.stephgit.memory.GameListItem
 import ch.stephgit.memory.persistence.AppDatabase
 import ch.stephgit.memory.persistence.entity.Game
 
@@ -14,19 +15,22 @@ class GameRepository(private val applicationContext: Context) {
     init {
         db = Room.databaseBuilder(applicationContext,
             AppDatabase::class.java,
-            "memory-db1")
+            "memory-db2")
             .allowMainThreadQueries()
             .build()
     }
 
     fun saveGame(game: Game) {
-        // TODO
-        db.gameDAO().saveGame(game)
-
+        val id = db.gameDAO().saveGame(game)
     }
 
-    fun loadHistory(userId: Int) {
-        db.gameDAO().findGamesByUser(userId)
+    fun loadHistory(userName: String): MutableList<GameListItem> {
+        val list = db.gameDAO().findGamesByUser(userName)
+        val resultList: MutableList<GameListItem> = ArrayList()
+        list.forEach{ it ->
+            resultList.add(GameListItem(it.userName, it.date, it.score))
+        }
+        return resultList
     }
 
     fun loadRanking(): List<Game> {

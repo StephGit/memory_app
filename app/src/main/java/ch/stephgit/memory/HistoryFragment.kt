@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import ch.stephgit.memory.persistence.repository.GameRepository
 import java.util.*
+
 
 class HistoryFragment: Fragment() {
 
-    private lateinit var historyItems: MutableList<ScoreListItem>
+    private lateinit var historyItems: MutableList<GameListItem>
 
     companion object {
         fun newFragment(): Fragment = RankingFragment()
@@ -28,9 +30,9 @@ class HistoryFragment: Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_history, container, false)
 
-        val lv_history = view.findViewById<ListView>(R.id.lv_history)
-        val customAdapter = ScoreAdapter(requireContext(), 0, historyItems)
-        lv_history.adapter = customAdapter
+        val lvHistory = view.findViewById<ListView>(R.id.lv_history)
+        val customAdapter = GameAdapter(requireContext(), 0, historyItems)
+        lvHistory.adapter = customAdapter
 //        list.setOnItemClickListener { parent, view, position, id ->
 //            someActionWithItem(customAdapter.getItem(position))
 
@@ -38,8 +40,10 @@ class HistoryFragment: Fragment() {
     }
 
     private fun loadHistoryItems() {
+        val gameRepository = GameRepository(requireContext().applicationContext)
+        historyItems = gameRepository.loadHistory("asdf")
         historyItems = mutableListOf(
-            ScoreListItem("Hans", Date(), "12")
-            ,ScoreListItem("Peter", Date(), "10"))
+            GameListItem("Hans", Date(), 12)
+            ,GameListItem("Peter", Date(), 10))
     }
 }

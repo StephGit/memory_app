@@ -13,7 +13,7 @@ class PlayerRepository (private val applicationContext: Context) {
     init {
         db = Room.databaseBuilder(applicationContext,
             AppDatabase::class.java,
-            "memory-db1")
+            "memory-db2")
             .allowMainThreadQueries()
             .build()
     }
