@@ -3,9 +3,10 @@ package ch.stephgit.memory.persistence.repository
 import android.arch.persistence.room.Room
 import android.content.Context
 import ch.stephgit.memory.persistence.AppDatabase
-import ch.stephgit.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.entity.Game
 
-class HistoryRepository(private val applicationContext: Context) {
+
+class GameRepository(private val applicationContext: Context) {
 
 
     private var db: AppDatabase
@@ -18,18 +19,19 @@ class HistoryRepository(private val applicationContext: Context) {
             .build()
     }
 
-    fun saveUser(player: Player) {
-        db.playerDAO().savePlayer(player)
+    fun saveGame(game: Game) {
+        // TODO
+        db.gameDAO().saveGame(game)
 
     }
 
-    fun loadUsers() {
-        var players: List<Player> = db.playerDAO().allPlayers()
-        for ( p in players) {
-            print(p.userName)
-        }
+    fun loadHistory(userId: Int) {
+        db.gameDAO().findGamesByUser(userId)
     }
 
+    fun loadRanking(): List<Game> {
+        return db.gameDAO().findGamesByScore()
+    }
 
 
 

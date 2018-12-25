@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
                 it.isChecked = true
                 when (it.itemId) {
                     R.id.nav_action_game -> replaceFragment(GamePlayFragment.newFragment())
-                    R.id.nav_action_history -> {}
+                    R.id.nav_action_history -> replaceFragment(HistoryFragment.newFragment())
                     R.id.nav_action_ranking -> {}
                     R.id.nav_action_profile -> {}
                 }
@@ -52,14 +52,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
 //        else {
 
 
-//        val items =
-//            mutableListOf(
-//                ScoreListItem("Hans", Date(), "12")
-//        ,ScoreListItem("Peter", Date(), "10"))
-//        val customAdapter = ScoreAdapter(this, 0, items)
-//        lv_history.adapter = customAdapter
-////        list.setOnItemClickListener { parent, view, position, id ->
-////            someActionWithItem(customAdapter.getItem(position))
+//
 ////        }
 
     }

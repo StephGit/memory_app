@@ -9,13 +9,12 @@ interface GameDAO {
     @Insert
     fun saveGame(game: Game): Long
 
-    @Update
-    fun updateGame(game: Game): Int
-
-    @Delete
-    fun deleteGame(game: Game): Int
-
     @Query("SELECT * FROM GAME")
     fun allGames(): List<Game>
 
+    @Query("SELECT * FROM GAME WHERE userId = userId")
+    fun findGamesByUser(userId: Int) : List<Game>
+
+    @Query("SELECT * FROM GAME order by score desc")
+    fun findGamesByScore() : List<Game>
 }
