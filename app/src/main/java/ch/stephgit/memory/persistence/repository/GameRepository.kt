@@ -28,13 +28,13 @@ class GameRepository(private val applicationContext: Context) {
         val list = db.gameDAO().findGamesByUser(userName)
         val resultList: MutableList<GameListItem> = ArrayList()
         list.forEach{ it ->
-            resultList.add(GameListItem(it.userName, it.date, it.score))
+            resultList.add(GameListItem(it.userName, it.date, it.flips))
         }
         return resultList
     }
 
     fun loadRanking(): List<Game> {
-        return db.gameDAO().findGamesByScore()
+        return db.gameDAO().findGamesByFlips()
     }
 
 

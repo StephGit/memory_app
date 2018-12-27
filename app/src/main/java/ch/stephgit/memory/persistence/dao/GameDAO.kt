@@ -16,6 +16,6 @@ interface GameDAO {
     @Query("SELECT * FROM GAME WHERE userName = :userName")
     fun findGamesByUser(userName: String) : List<Game>
 
-    @Query("SELECT * FROM GAME order by score desc")
-    fun findGamesByScore() : List<Game>
+    @Query("SELECT * FROM GAME order by flips desc")
+    fun findGamesByFlips() : List<Game>
 }

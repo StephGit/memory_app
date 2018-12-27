@@ -15,7 +15,7 @@ class HistoryFragment: Fragment() {
     private lateinit var historyItems: MutableList<GameListItem>
 
     companion object {
-        fun newFragment(): Fragment = RankingFragment()
+        fun newFragment(): Fragment = HistoryFragment()
     }
 
 //    override fun onAttach(context: Context?) {
@@ -26,6 +26,7 @@ class HistoryFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
+        activity?.title= "History"
         loadHistoryItems()
 
         val view = inflater.inflate(R.layout.fragment_history, container, false)
@@ -36,14 +37,15 @@ class HistoryFragment: Fragment() {
 //        list.setOnItemClickListener { parent, view, position, id ->
 //            someActionWithItem(customAdapter.getItem(position))
 
+
         return view
     }
 
     private fun loadHistoryItems() {
         val gameRepository = GameRepository(requireContext().applicationContext)
-        historyItems = gameRepository.loadHistory("asdf")
-        historyItems = mutableListOf(
-            GameListItem("Hans", Date(), 12)
-            ,GameListItem("Peter", Date(), 10))
+        historyItems = gameRepository.loadHistory("Houssi")
+//        historyItems = mutableListOf(
+//            GameListItem("Hans", Date(), 12)
+//            ,GameListItem("Peter", Date(), 10))
     }
 }

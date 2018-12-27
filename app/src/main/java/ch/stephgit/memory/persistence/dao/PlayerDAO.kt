@@ -20,4 +20,7 @@ interface PlayerDAO {
 
     @Query("SELECT * FROM PLAYER")
     fun allPlayers(): List<Player>
+
+    @Query("SELECT * FROM PLAYER where id = :userId")
+    fun getPlayerById(userId: Long): Player
 }

@@ -18,8 +18,12 @@ class PlayerRepository (private val applicationContext: Context) {
             .build()
     }
 
-    fun saveUser(player: Player) {
-        val id = db.playerDAO().savePlayer(player)
+    fun saveUser(player: Player) : Long {
+        return db.playerDAO().savePlayer(player)
+    }
+
+    fun findPlayerById(userId: Long) : Player {
+        return db.playerDAO().getPlayerById(userId)
     }
 
     fun findPlayerByUserName(userName: String) : Player {

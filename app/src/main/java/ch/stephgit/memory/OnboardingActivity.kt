@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import ch.stephgit.memory.persistence.entity.Player
 import ch.stephgit.memory.persistence.repository.PlayerRepository
+import java.util.*
 
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
@@ -54,13 +55,14 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     }
 
     override fun finishOnboarding() {
-        PreferenceManager.getDefaultSharedPreferences(this)
-            .edit()
-            .putString("KEY_TOKEN", "someToken")
-            .apply()
 
         val playerRepository = PlayerRepository(this.applicationContext)
-        playerRepository.saveUser(player)
+        val userId = playerRepository.saveUser(player)
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putString("KEY_TOKEN", Date().toString() + ":" + userId )
+            .apply()
 
         startActivity(MainActivity.newIntent(this))
     }

@@ -3,18 +3,24 @@ package ch.stephgit.memory
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import ch.stephgit.memory.persistence.entity.Game
+import ch.stephgit.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.repository.GameRepository
+import ch.stephgit.memory.persistence.repository.PlayerRepository
+import java.util.*
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
 
     private lateinit var navigationView: NavigationView
     private lateinit var drawLayout: DrawerLayout
-
+    private lateinit var player: Player
 
     companion object {
         fun newIntent(ctx: Context) = Intent(ctx, MainActivity::class.java)
@@ -46,14 +52,19 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             true
         }
 
+        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
+            val token = PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null)
+            val id: Long? = token?.substringAfterLast(":")?.toLong()
+            if (id != null) {
+                val playerRepository = PlayerRepository(this.applicationContext)
+                player = playerRepository.findPlayerById(id)
+            }
+        }
+
+
         if (savedInstanceState == null) {
             replaceFragment(GamePlayFragment())
         }
-//        else {
-
-
-//
-////        }
 
     }
 
@@ -80,6 +91,10 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
     }
 
     override fun goToResult(flips: Int) {
+        val gameRepository = GameRepository(applicationContext)
+        gameRepository.saveGame(Game(player.userName, Date(), flips))
+
+
         val bundle = Bundle()
         bundle.putInt("flips", flips)
         val fragment = OverlayMessageFragment()

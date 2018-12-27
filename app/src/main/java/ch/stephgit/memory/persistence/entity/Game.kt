@@ -7,9 +7,9 @@ import java.util.*
 
 @Entity
 data class Game (
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?,
     val userName: String,
     val date: Date,
-    val score: Int
+    val flips: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long? = null
 )

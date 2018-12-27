@@ -10,7 +10,7 @@ import android.widget.TextView
 import java.util.*
 
 
-data class GameListItem(val userName: String, val date: Date, val score: Int)
+data class GameListItem(val userName: String, val date: Date, val flips: Int)
 
 class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: MutableList<GameListItem>):
     ArrayAdapter<GameListItem>(context, itemLayoutRes, items) {
@@ -22,7 +22,7 @@ class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: Mutabl
 
         view.findViewById<TextView>(R.id.tvItemText1).text = item?.userName
         view.findViewById<TextView>(R.id.tvItemText2).text = item?.date.toString()
-        view.findViewById<TextView>(R.id.tvItemText3).text = item?.score.toString()
+        view.findViewById<TextView>(R.id.tvItemText3).text = item?.flips.toString()
         return view
     }
 }

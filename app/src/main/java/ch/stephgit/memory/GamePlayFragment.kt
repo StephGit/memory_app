@@ -34,9 +34,10 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity?.title = "Memory"
 
         val view = inflater.inflate(R.layout.fragment_game_play_board, container, false)
-        tvFlips = view.findViewById(R.id.tv_score)
+        tvFlips = view.findViewById(R.id.tv_flips)
 
         val emoijs = mutableListOf("\uD83D\uDCA9","\uD83E\uDD21","\uD83D\uDC79","\uD83D\uDC7A","\uD83D\uDC7B","\uD83D\uDC7D","\uD83D\uDC7E","\uD83E\uDD16","\uD83D\uDC27","\uD83C\uDF83","☢","☣","\uD83C\uDF7A","\uD83E\uDD43","☠","\uD83D\uDCA3","\uD83D\uDD95","\uD83E\uDDB7")
 
