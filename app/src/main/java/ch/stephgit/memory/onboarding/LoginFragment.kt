@@ -1,16 +1,23 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.onboarding
 
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.*
+import android.widget.EditText
+import ch.stephgit.memory.MainActivity
+import ch.stephgit.memory.MemoryApp
+import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
-import ch.stephgit.memory.persistence.repository.PlayerRepository
 import kotlinx.android.synthetic.main.fragment_registration.*
+import java.util.*
 
 class LoginFragment : Fragment() {
 
     private var player: Player? = null
+
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
 
     companion object {
         fun newFragment(): Fragment = LoginFragment()
@@ -19,7 +26,12 @@ class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
 
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+
+        etUsername = view.findViewById(R.id.et_username)
+        etPassword = view.findViewById(R.id.et_password)
+
+        return view
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -34,7 +46,7 @@ class LoginFragment : Fragment() {
             if (isValid()) {
                 PreferenceManager.getDefaultSharedPreferences(requireContext())
                     .edit()
-                    .putString("KEY_TOKEN", "someToken")
+                    .putString("KEY_TOKEN", Date().toString() + ":" + player?.id )
                     .apply()
                 startActivity(MainActivity.newIntent(requireContext()))
             }
@@ -44,14 +56,14 @@ class LoginFragment : Fragment() {
     }
 
     private fun isValid(): Boolean {
-        val username: String = et_username.text.toString().trim()
-        val password: String = et_password.text.toString().trim()
+        val username: String = etUsername.text.toString().trim()
+        val password: String = etPassword.text.toString().trim()
 
         player = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username)
 
         if (player?.password != password) {
-            et_username.error = "Wrong username or password"
-            et_password.error = "Wrong username or password"
+            etUsername.error = "Wrong username or password"
+            etPassword.error = "Wrong username or password"
             return false
         }
         return true

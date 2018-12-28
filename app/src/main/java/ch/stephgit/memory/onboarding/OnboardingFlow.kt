@@ -1,12 +1,10 @@
-package ch.stephgit.memory
-
-import ch.stephgit.memory.persistence.entity.Player
+package ch.stephgit.memory.onboarding
 
 interface OnboardingFlow {
 
     fun goToLogin()
     fun goToRegistration()
-    fun goToAgb(player: Player)
+    fun goToAgb()
     fun goToProfile()
     fun finishOnboarding()
 }
