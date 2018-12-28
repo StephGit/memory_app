@@ -5,14 +5,16 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toolbar
 import ch.stephgit.memory.persistence.entity.Player
+import kotlinx.android.synthetic.main.fragment_agb.*
 
 
 class AGBFragment: Fragment() {
 
     private lateinit var callback: OnboardingFlow
-    private lateinit var player: Player
 
     companion object {
         fun newFragment(): Fragment = AGBFragment()
@@ -33,6 +35,7 @@ class AGBFragment: Fragment() {
 
         val tvAgb = view.findViewById<TextView>(R.id.tv_agb)
         tvAgb.text = Html.fromHtml(agbText).toString()
+
         return view
     }
 
@@ -51,8 +54,9 @@ class AGBFragment: Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun validate(): Boolean {
-        // TODO add agb validator
-        return true
+    private fun validate(): Boolean {
+        if (cb_agb.isChecked) return true
+        cb_agb.error = "Please accept AGB's to proceed"
+        return false
     }
 }
