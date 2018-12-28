@@ -1,16 +1,17 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.onboarding
 
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import ch.stephgit.memory.MainActivity
+import ch.stephgit.memory.MemoryApp
+import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
 import java.util.*
 
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
-
-    private lateinit var player: Player
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +44,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
         replaceFragement(RegistrationFragment.newFragment())
     }
 
-    override fun goToAgb(player: Player) {
-        this.player = player
+    override fun goToAgb() {
         replaceFragement(AGBFragment.newFragment())
     }
 
@@ -53,6 +53,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     }
 
     override fun finishOnboarding() {
+        val player = (this.application as MemoryApp).getCurrentPlayer()
         val userId = (this.application as MemoryApp).getPlayerRepository().saveUser(player)
 
         PreferenceManager.getDefaultSharedPreferences(this)

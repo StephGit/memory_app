@@ -1,16 +1,24 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.onboarding
 
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
+import android.widget.EditText
+import android.widget.TextView
+import ch.stephgit.memory.MemoryApp
+import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
 import kotlinx.android.synthetic.main.fragment_registration.*
 
 class RegistrationFragment: Fragment() {
 
     private lateinit var callback: OnboardingFlow
-    private lateinit var player: Player
+
+    private lateinit var username: EditText
+    private lateinit var password: EditText
+    private lateinit var passwordConf: EditText
+
 
     companion object {
         fun newFragment(): Fragment = RegistrationFragment()
@@ -24,7 +32,13 @@ class RegistrationFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
 
-        return inflater.inflate(R.layout.fragment_registration, container, false)
+        val view = inflater.inflate(R.layout.fragment_registration, container, false)
+
+        username = view.findViewById(R.id.et_username)
+        password = view.findViewById(R.id.et_password)
+        passwordConf = view.findViewById(R.id.et_password_confirmation)
+
+        return view
     }
 
 
@@ -36,8 +50,10 @@ class RegistrationFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             if (isValid() && isUniqueUser()) {
-                (requireActivity().application as MemoryApp).setCurrentPlayer(player)
-                callback.goToAgb(player)
+                (requireActivity().application as MemoryApp)
+                    .setCurrentPlayer(
+                        Player(username.text.toString().trim(), password.text.toString().trim()))
+                callback.goToAgb()
             }
             return true
         }
@@ -45,34 +61,28 @@ class RegistrationFragment: Fragment() {
     }
 
     private fun isUniqueUser(): Boolean {
-        val p = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(et_username.text.toString().trim())
+        val p = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username.text.toString().trim())
 
         if (p?.id == null) return true
-        et_username.error = "Username is already used"
+        username.error = "Username is already used"
         return false
     }
 
     private fun isValid(): Boolean {
-        val username: String = et_username.text.toString().trim()
-        val password: String = et_password.text.toString().trim()
-        val passwordConf: String = et_password_confirmation.text.toString().trim()
-        when {
-            username.isBlank() -> {
+        return when {
+            username.text.trim().isBlank() -> {
                 et_username.error = "Username can't be empty!"
-                return false
+                false
             }
-            password.isBlank() -> {
+            password.text.trim().isBlank() -> {
                 et_password.error = "Password can't be empty!"
-                return false
+                false
             }
-            passwordConf != password -> {
+            passwordConf.text.toString() != password.text.toString() -> {
                 et_password_confirmation.error = "Password-Confirmation must match password!"
-                return false
+                false
             }
-            else -> {
-                player = Player(username, password)
-                return true
-            }
+            else -> true
         }
     }
 

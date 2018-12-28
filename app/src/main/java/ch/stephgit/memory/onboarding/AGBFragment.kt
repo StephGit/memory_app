@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.onboarding
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
 import android.widget.TextView
+import ch.stephgit.memory.R
 import kotlinx.android.synthetic.main.fragment_agb.*
 
 

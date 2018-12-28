@@ -10,9 +10,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import ch.stephgit.memory.persistence.entity.Game
 import ch.stephgit.memory.persistence.entity.Player
-import java.util.*
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
 
@@ -42,8 +40,8 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
                 when (it.itemId) {
                     R.id.nav_action_game -> replaceFragment(GamePlayFragment.newFragment())
                     R.id.nav_action_history -> replaceFragment(HistoryFragment.newFragment())
-                    R.id.nav_action_ranking -> {}
-                    R.id.nav_action_profile -> {}
+                    R.id.nav_action_ranking -> replaceFragment(RankingFragment.newFragment())
+                    R.id.nav_action_profile -> replaceFragment(UserFragment.newFragment())
                 }
             }
             drawLayout.closeDrawer(GravityCompat.START)
@@ -55,6 +53,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             val id: Long? = token?.substringAfterLast(":")?.toLong()
             if (id != null) {
                 player = (application as MemoryApp).getPlayerRepository().findPlayerById(id)
+                (application as MemoryApp).setCurrentPlayer(player)
             }
         }
 
@@ -88,8 +87,6 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
     }
 
     override fun goToResult(flips: Int) {
-
-        (application as MemoryApp).getGameRepository().saveGame(Game(player.userName, Date(), flips))
 
         val bundle = Bundle()
         bundle.putInt("flips", flips)

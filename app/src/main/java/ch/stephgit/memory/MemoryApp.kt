@@ -17,7 +17,7 @@ class MemoryApp : Application() {
         super.onCreate()
         val db = Room.databaseBuilder(applicationContext,
             AppDatabase::class.java,
-            "memory-db2")
+            "memory-db3")
             .allowMainThreadQueries()
             .build()
         gameRepository = GameRepository(db)

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import ch.stephgit.memory.persistence.entity.Game
 import java.util.*
 
 class GamePlayFragment: Fragment(), View.OnClickListener {
@@ -118,7 +119,8 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
-
+            val app = (requireActivity().application as MemoryApp)
+            app.getGameRepository().saveGame(Game(app.getCurrentPlayer().userName, Date(), counter))
             callback.goToResult(counter)
         }
     }
