@@ -1,0 +1,36 @@
+package ch.stephgit.memory
+
+import android.app.Application
+import android.arch.persistence.room.Room
+import ch.stephgit.memory.persistence.AppDatabase
+import ch.stephgit.memory.persistence.entity.Player
+import ch.stephgit.memory.persistence.repository.GameRepository
+import ch.stephgit.memory.persistence.repository.PlayerRepository
+
+class MemoryApp : Application() {
+
+    private lateinit var gameRepository: GameRepository
+    private lateinit var playerRepository: PlayerRepository
+    private lateinit var player: Player
+
+    override fun onCreate() {
+        super.onCreate()
+        val db = Room.databaseBuilder(applicationContext,
+            AppDatabase::class.java,
+            "memory-db2")
+            .allowMainThreadQueries()
+            .build()
+        gameRepository = GameRepository(db)
+        playerRepository = PlayerRepository(db)
+    }
+
+    fun getPlayerRepository() = playerRepository
+
+    fun getGameRepository() = gameRepository
+
+    fun getCurrentPlayer() = player
+
+    fun setCurrentPlayer(player: Player) {
+        this.player = player
+    }
+}

@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
-import android.widget.FrameLayout
 import android.widget.TextView
-import android.widget.Toolbar
-import ch.stephgit.memory.persistence.entity.Player
 import kotlinx.android.synthetic.main.fragment_agb.*
 
 

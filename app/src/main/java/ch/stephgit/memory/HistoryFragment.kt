@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import ch.stephgit.memory.persistence.repository.GameRepository
-import java.util.*
 
 
 class HistoryFragment: Fragment() {
@@ -42,10 +41,7 @@ class HistoryFragment: Fragment() {
     }
 
     private fun loadHistoryItems() {
-        val gameRepository = GameRepository(requireContext().applicationContext)
-        historyItems = gameRepository.loadHistory("Houssi")
-//        historyItems = mutableListOf(
-//            GameListItem("Hans", Date(), 12)
-//            ,GameListItem("Peter", Date(), 10))
+        val userName = (requireActivity().application as MemoryApp).getCurrentPlayer().userName
+        historyItems = (requireActivity().application as MemoryApp).getGameRepository().loadHistory(userName)
     }
 }

@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
-import kotlinx.android.synthetic.main.fragment_registration.*
 import ch.stephgit.memory.persistence.entity.Player
-import ch.stephgit.memory.persistence.repository.PlayerRepository
-import java.lang.RuntimeException
+import kotlinx.android.synthetic.main.fragment_registration.*
 
 class RegistrationFragment: Fragment() {
 
@@ -38,6 +36,7 @@ class RegistrationFragment: Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             if (isValid() && isUniqueUser()) {
+                (requireActivity().application as MemoryApp).setCurrentPlayer(player)
                 callback.goToAgb(player)
             }
             return true
@@ -46,11 +45,9 @@ class RegistrationFragment: Fragment() {
     }
 
     private fun isUniqueUser(): Boolean {
-        val playerRepository = PlayerRepository(super.getContext()!!.applicationContext)
-        val p = playerRepository.findPlayerByUserName(et_username.text.toString().trim())
+        val p = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(et_username.text.toString().trim())
 
         if (p?.id == null) return true
-
         et_username.error = "Username is already used"
         return false
     }

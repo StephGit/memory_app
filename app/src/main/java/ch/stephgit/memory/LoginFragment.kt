@@ -47,8 +47,7 @@ class LoginFragment : Fragment() {
         val username: String = et_username.text.toString().trim()
         val password: String = et_password.text.toString().trim()
 
-        val playerRepository = PlayerRepository(requireContext().applicationContext)
-        player = playerRepository.findPlayerByUserName(username)
+        player = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username)
 
         if (player?.password != password) {
             et_username.error = "Wrong username or password"

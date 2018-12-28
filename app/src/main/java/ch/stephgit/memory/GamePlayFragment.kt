@@ -118,6 +118,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
+
             callback.goToResult(counter)
         }
     }

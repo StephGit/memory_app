@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import ch.stephgit.memory.persistence.entity.Game
 import ch.stephgit.memory.persistence.entity.Player
-import ch.stephgit.memory.persistence.repository.GameRepository
-import ch.stephgit.memory.persistence.repository.PlayerRepository
 import java.util.*
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
@@ -56,8 +54,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             val token = PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null)
             val id: Long? = token?.substringAfterLast(":")?.toLong()
             if (id != null) {
-                val playerRepository = PlayerRepository(this.applicationContext)
-                player = playerRepository.findPlayerById(id)
+                player = (application as MemoryApp).getPlayerRepository().findPlayerById(id)
             }
         }
 
@@ -91,9 +88,8 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
     }
 
     override fun goToResult(flips: Int) {
-        val gameRepository = GameRepository(applicationContext)
-        gameRepository.saveGame(Game(player.userName, Date(), flips))
 
+        (application as MemoryApp).getGameRepository().saveGame(Game(player.userName, Date(), flips))
 
         val bundle = Bundle()
         bundle.putInt("flips", flips)

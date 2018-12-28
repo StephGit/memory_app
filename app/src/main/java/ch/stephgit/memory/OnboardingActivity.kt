@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_onboarding.*
 import ch.stephgit.memory.persistence.entity.Player
-import ch.stephgit.memory.persistence.repository.PlayerRepository
 import java.util.*
 
 
@@ -17,7 +15,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-        setSupportActionBar(toolbar)
+//        setSupportActionBar(toolbar)
         supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
@@ -55,9 +53,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     }
 
     override fun finishOnboarding() {
-
-        val playerRepository = PlayerRepository(this.applicationContext)
-        val userId = playerRepository.saveUser(player)
+        val userId = (this.application as MemoryApp).getPlayerRepository().saveUser(player)
 
         PreferenceManager.getDefaultSharedPreferences(this)
             .edit()
