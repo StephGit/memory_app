@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.onboarding
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
@@ -14,6 +14,8 @@ import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
+import ch.stephgit.memory.MemoryApp
+import ch.stephgit.memory.R
 import java.io.File
 
 
@@ -44,15 +46,22 @@ class ProfileFragment: Fragment()  {
         }
 
         ivImage = view.findViewById(R.id.iv_profile_image)
-        val file = File(requireContext().filesDir, profileImage)
-        if (file.exists()) {
-            file.inputStream().use {
-                val imageBitmap = BitmapFactory.decodeStream(it)
-                ivImage.setImageBitmap(imageBitmap)
-            }
+        val img = getProfileImage()
+        if (img != null) {
+            ivImage.setImageBitmap(img)
         }
 
         return view
+    }
+
+    private fun getProfileImage() : Bitmap? {
+        val file = File(requireContext().filesDir, profileImage)
+        if (file.exists()) {
+            file.inputStream().use {
+                return BitmapFactory.decodeStream(it)
+            }
+        }
+        return null
     }
 
     private fun takePicture() {
@@ -87,6 +96,7 @@ class ProfileFragment: Fragment()  {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
+            (requireActivity().application as MemoryApp).getCurrentPlayer().image = getProfileImage()
             callback.finishOnboarding()
             return true
         }
