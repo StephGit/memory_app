@@ -13,6 +13,12 @@ import java.util.*
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
+    override fun onStart() {
+        super.onStart()
+
+        // TODO  ckeck currentUser
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
@@ -20,9 +26,9 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
         supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
-            startActivity(MainActivity.newIntent(this))
-        }
+//        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
+//            startActivity(MainActivity.newIntent(this))
+//        }
 
         if (savedInstanceState == null) {
             replaceFragement(OnboardingFragment.newFragment())

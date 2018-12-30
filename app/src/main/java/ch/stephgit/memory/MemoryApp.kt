@@ -1,11 +1,10 @@
 package ch.stephgit.memory
 
 import android.app.Application
-import android.arch.persistence.room.Room
-import ch.stephgit.memory.persistence.AppDatabase
 import ch.stephgit.memory.persistence.entity.Player
 import ch.stephgit.memory.persistence.repository.GameRepository
 import ch.stephgit.memory.persistence.repository.PlayerRepository
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MemoryApp : Application() {
 
@@ -15,13 +14,12 @@ class MemoryApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val db = Room.databaseBuilder(applicationContext,
-            AppDatabase::class.java,
-            "memory-db3")
-            .allowMainThreadQueries()
-            .build()
+
+        val db = FirebaseFirestore.getInstance()
         gameRepository = GameRepository(db)
         playerRepository = PlayerRepository(db)
+
+
     }
 
     fun getPlayerRepository() = playerRepository

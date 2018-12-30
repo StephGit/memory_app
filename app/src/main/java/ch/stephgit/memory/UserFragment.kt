@@ -1,7 +1,9 @@
 package ch.stephgit.memory
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +26,12 @@ class UserFragment : Fragment() {
 
         val player = (requireActivity().application as MemoryApp).getCurrentPlayer()
 
-        tvUsername.text = player.userName
+        tvUsername.text = player.username
         player.image?.let {
-            ivPicture.setImageBitmap(it)
+            val byteArray = Base64.decode(it, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+            ivPicture.setImageBitmap(bitmap)
         }
         return view
     }
-
 }

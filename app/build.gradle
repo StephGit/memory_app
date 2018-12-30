@@ -37,4 +37,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     kapt "android.arch.persistence.room:compiler:1.1.1"
+    implementation "com.google.firebase:firebase-core:16.0.6"
+    implementation 'com.google.firebase:firebase-firestore:17.1.5'
 }
+
+apply plugin: 'com.google.gms.google-services'

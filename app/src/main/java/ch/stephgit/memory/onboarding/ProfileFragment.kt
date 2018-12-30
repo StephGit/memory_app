@@ -11,11 +11,13 @@ import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.util.Base64
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 
@@ -96,7 +98,8 @@ class ProfileFragment: Fragment()  {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
-            (requireActivity().application as MemoryApp).getCurrentPlayer().image = getProfileImage()
+            val imageString = fromBitmapToBase64(getProfileImage())
+            (requireActivity().application as MemoryApp).getCurrentPlayer().image = imageString
             callback.finishOnboarding()
             return true
         }
@@ -114,5 +117,11 @@ class ProfileFragment: Fragment()  {
                 }
             }
         }
+    }
+
+    private fun fromBitmapToBase64(bitmap: Bitmap?) : String {
+        val stream = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
     }
 }

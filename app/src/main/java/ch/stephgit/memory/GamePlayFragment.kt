@@ -120,7 +120,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
             val app = (requireActivity().application as MemoryApp)
-            app.getGameRepository().saveGame(Game(app.getCurrentPlayer().userName, Date(), counter))
+            app.getGameRepository().saveGame(Game(app.getCurrentPlayer().username, Date(), counter))
             callback.goToResult(counter)
         }
     }

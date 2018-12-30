@@ -5,20 +5,21 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
 import kotlinx.android.synthetic.main.fragment_registration.*
+
 
 class RegistrationFragment: Fragment() {
 
     private lateinit var callback: OnboardingFlow
 
     private lateinit var username: EditText
+    private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var passwordConf: EditText
-
 
     companion object {
         fun newFragment(): Fragment = RegistrationFragment()
@@ -35,6 +36,7 @@ class RegistrationFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_registration, container, false)
 
         username = view.findViewById(R.id.et_username)
+        email = view.findViewById(R.id.et_email)
         password = view.findViewById(R.id.et_password)
         passwordConf = view.findViewById(R.id.et_password_confirmation)
 
@@ -52,7 +54,8 @@ class RegistrationFragment: Fragment() {
             if (isValid() && isUniqueUser()) {
                 (requireActivity().application as MemoryApp)
                     .setCurrentPlayer(
-                        Player(username.text.toString().trim(), password.text.toString().trim()))
+                        Player(username.text.toString().trim(), password.text.toString().trim())
+                    )
                 callback.goToAgb()
             }
             return true

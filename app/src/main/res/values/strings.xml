@@ -16,4 +16,5 @@
     <string name="ranking">Ranking</string>
     <string name="profile">Profile</string>
     <string name="accept_agbs">Accept AGBs</string>
+    <string name="email">Email</string>
 </resources>

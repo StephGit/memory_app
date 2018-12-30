@@ -36,7 +36,7 @@ class RankingFragment: Fragment() {
     }
 
     private fun loadRankingItems() {
-        val userName = (requireActivity().application as MemoryApp).getCurrentPlayer().userName
+        val userName = (requireActivity().application as MemoryApp).getCurrentPlayer().username
         rankingItems = (requireActivity().application as MemoryApp).getGameRepository().loadRanking()
     }
 }
