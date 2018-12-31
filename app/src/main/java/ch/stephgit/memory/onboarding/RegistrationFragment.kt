@@ -10,6 +10,7 @@ import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.coroutines.runBlocking
 
 
 class RegistrationFragment: Fragment() {
@@ -64,11 +65,17 @@ class RegistrationFragment: Fragment() {
     }
 
     private fun isUniqueUser(): Boolean {
-        val p = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username.text.toString().trim())
+        var p: Player? = null
+
+        runBlocking {
+            p = (requireActivity().application as MemoryApp).getPlayerRepository()
+                .findPlayerByUserName(username.text.toString().trim())
+        }
 
         if (p?.id == null) return true
         username.error = "Username is already used"
         return false
+
     }
 
     private fun isValid(): Boolean {

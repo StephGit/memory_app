@@ -11,12 +11,14 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import ch.stephgit.memory.persistence.entity.Player
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
 
     private lateinit var navigationView: NavigationView
     private lateinit var drawLayout: DrawerLayout
-    private lateinit var player: Player
+    private var player: Player? = null
 
     companion object {
         fun newIntent(ctx: Context) = Intent(ctx, MainActivity::class.java)
@@ -50,9 +52,14 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
             val token = PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null)
-            token?.substringAfterLast(":").let {
-                player = (application as MemoryApp).getPlayerRepository().findPlayerById(it!!)
-                (application as MemoryApp).setCurrentPlayer(player)
+            val id = token?.substringAfterLast(":")
+            if (id != null) {
+                runBlocking {
+                    player = (application as MemoryApp).getPlayerRepository().findPlayerById(id)
+                    if (player != null) {
+                        (application as MemoryApp).setCurrentPlayer(player!!)
+                    }
+                }
             }
         }
 

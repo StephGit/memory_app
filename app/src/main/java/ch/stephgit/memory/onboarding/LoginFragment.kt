@@ -10,6 +10,7 @@ import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 class LoginFragment : Fragment() {
@@ -59,7 +60,9 @@ class LoginFragment : Fragment() {
         val username: String = etUsername.text.toString().trim()
         val password: String = etPassword.text.toString().trim()
 
-        player = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username)
+        runBlocking {
+            player = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username)
+        }
 
         if (player?.password != password) {
             etUsername.error = "Wrong username or password"
