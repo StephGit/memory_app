@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-data class GameListItem(val userName: String, val date: Date, val flips: Int)
+data class GameListItem(val userName: String, val date: Date, val flips: Long)
 
 class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: MutableList<GameListItem>):
     ArrayAdapter<GameListItem>(context, itemLayoutRes, items) {

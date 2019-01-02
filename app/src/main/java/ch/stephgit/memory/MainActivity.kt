@@ -3,22 +3,17 @@ package ch.stephgit.memory
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import ch.stephgit.memory.persistence.entity.Player
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
 
     private lateinit var navigationView: NavigationView
     private lateinit var drawLayout: DrawerLayout
-    private var player: Player? = null
 
     companion object {
         fun newIntent(ctx: Context) = Intent(ctx, MainActivity::class.java)
@@ -49,20 +44,6 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             drawLayout.closeDrawer(GravityCompat.START)
             true
         }
-
-        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
-            val token = PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null)
-            val id = token?.substringAfterLast(":")
-            if (id != null) {
-                runBlocking {
-                    player = (application as MemoryApp).getPlayerRepository().findPlayerById(id)
-                    if (player != null) {
-                        (application as MemoryApp).setCurrentPlayer(player!!)
-                    }
-                }
-            }
-        }
-
 
         if (savedInstanceState == null) {
             replaceFragment(GamePlayFragment())

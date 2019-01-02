@@ -41,7 +41,8 @@ class HistoryFragment: Fragment() {
     }
 
     private fun loadHistoryItems() {
-        val userName = (requireActivity().application as MemoryApp).getCurrentPlayer().username
-        historyItems = (requireActivity().application as MemoryApp).getGameRepository().loadHistory(userName)
+        val app = (requireActivity().application as MemoryApp)
+        val username = app.getCurrentUser()!!.displayName
+        historyItems = app.getGameRepository().loadHistory(username!!)
     }
 }

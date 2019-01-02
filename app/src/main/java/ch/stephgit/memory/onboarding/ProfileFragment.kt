@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
@@ -19,6 +20,10 @@ import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import java.io.ByteArrayOutputStream
 import java.io.File
+import android.widget.Toast
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FirebaseStorage
 
 
 class ProfileFragment: Fragment()  {
@@ -26,6 +31,7 @@ class ProfileFragment: Fragment()  {
     private lateinit var callback: OnboardingFlow
 
     private val profileImage = "profile_image.png"
+    private lateinit var profileImageUrl: String
     private lateinit var ivImage: ImageView
 
     companion object {
@@ -48,22 +54,7 @@ class ProfileFragment: Fragment()  {
         }
 
         ivImage = view.findViewById(R.id.iv_profile_image)
-        val img = getProfileImage()
-        if (img != null) {
-            ivImage.setImageBitmap(img)
-        }
-
         return view
-    }
-
-    private fun getProfileImage() : Bitmap? {
-        val file = File(requireContext().filesDir, profileImage)
-        if (file.exists()) {
-            file.inputStream().use {
-                return BitmapFactory.decodeStream(it)
-            }
-        }
-        return null
     }
 
     private fun takePicture() {
@@ -98,8 +89,7 @@ class ProfileFragment: Fragment()  {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
-            val imageString = fromBitmapToBase64(getProfileImage())
-            (requireActivity().application as MemoryApp).getCurrentPlayer().image = imageString
+            (requireActivity().application as MemoryApp).saveUserInformations(null, profileImageUrl)
             callback.finishOnboarding()
             return true
         }
@@ -115,13 +105,22 @@ class ProfileFragment: Fragment()  {
                 file.outputStream().use { f ->
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, f)
                 }
+                uploadImageToFirebaseStorage(Uri.parse(file.absolutePath))
             }
         }
     }
 
-    private fun fromBitmapToBase64(bitmap: Bitmap?) : String {
-        val stream = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
+    private fun uploadImageToFirebaseStorage(uri: Uri) {
+        val profilImageRef =
+            FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg")
+
+        profilImageRef.putFile(uri)
+            .addOnSuccessListener { taskSnapshot ->
+                profileImageUrl = taskSnapshot.uploadSessionUri.toString()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+            }
+
     }
 }

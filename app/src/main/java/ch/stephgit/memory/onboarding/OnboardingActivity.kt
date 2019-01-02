@@ -1,37 +1,31 @@
 package ch.stephgit.memory.onboarding
 
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import ch.stephgit.memory.MainActivity
-import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
-import ch.stephgit.memory.persistence.entity.Player
-import java.util.*
+import com.google.firebase.auth.FirebaseAuth
 
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
-    override fun onStart() {
-        super.onStart()
-
-        // TODO  ckeck currentUser
-    }
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-//        setSupportActionBar(toolbar)
         supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
-//        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
-//            startActivity(MainActivity.newIntent(this))
-//        }
+        mAuth = FirebaseAuth.getInstance()
+
+        if (mAuth.currentUser != null) {
+            startActivity(MainActivity.newIntent(this))
+        }
 
         if (savedInstanceState == null) {
-            replaceFragement(OnboardingFragment.newFragment())
+            replaceFragement(LoginFragment.newFragment())
         }
     }
 
@@ -40,10 +34,6 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
             .beginTransaction()
             .replace(R.id.onboarding, fragment)
             .commit()
-    }
-
-    override fun goToLogin() {
-        replaceFragement(LoginFragment.newFragment())
     }
 
     override fun goToRegistration() {
@@ -59,13 +49,11 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
     }
 
     override fun finishOnboarding() {
-        val player = (this.application as MemoryApp).getCurrentPlayer()
-        val userId = (this.application as MemoryApp).getPlayerRepository().saveUser(player)
 
-        PreferenceManager.getDefaultSharedPreferences(this)
-            .edit()
-            .putString("KEY_TOKEN", Date().toString() + ":" + userId )
-            .apply()
+//        PreferenceManager.getDefaultSharedPreferences(this)
+//            .edit()
+//            .putString("KEY_TOKEN", Date().toString() + ":" + userId )
+//            .apply()
 
         startActivity(MainActivity.newIntent(this))
     }

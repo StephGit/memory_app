@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
 
 class UserFragment : Fragment() {
 
@@ -20,14 +21,15 @@ class UserFragment : Fragment() {
         setHasOptionsMenu(true)
         activity?.title= "Profile"
 
+        var auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
         val view = inflater.inflate(R.layout.fragment_user, container, false)
         val tvUsername = view.findViewById<TextView>(R.id.tv_username)
         val ivPicture = view.findViewById<ImageView>(R.id.iv_profile_image)
 
-        val player = (requireActivity().application as MemoryApp).getCurrentPlayer()
-
-        tvUsername.text = player.username
-        player.image?.let {
+        tvUsername.text = user!!.displayName
+        user.photoUrl.toString()?.let {
             val byteArray = Base64.decode(it, Base64.DEFAULT)
             val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
             ivPicture.setImageBitmap(bitmap)
