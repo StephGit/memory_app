@@ -1,5 +1,6 @@
 package ch.stephgit.memory
 
+import android.arch.lifecycle.LiveData
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import ch.stephgit.memory.persistence.repository.GameRepository
 
 class HistoryFragment: Fragment() {
 
-    private lateinit var historyItems: MutableList<GameListItem>
+    private lateinit var historyItems: LiveData<MutableList<GameListItem>>
 
     companion object {
         fun newFragment(): Fragment = HistoryFragment()
@@ -31,7 +32,7 @@ class HistoryFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_history, container, false)
 
         val lvHistory = view.findViewById<ListView>(R.id.lv_history)
-        val customAdapter = GameAdapter(requireContext(), 0, historyItems)
+        val customAdapter = GameAdapter(requireContext(), 0, historyItems.value!!)
         lvHistory.adapter = customAdapter
 //        list.setOnItemClickListener { parent, view, position, id ->
 //            someActionWithItem(customAdapter.getItem(position))

@@ -1,16 +1,15 @@
 package ch.stephgit.memory.persistence.repository
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.content.ContentValues
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import ch.stephgit.memory.GameListItem
-import ch.stephgit.memory.MainActivity
-import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.persistence.entity.Game
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class GameRepository(private val db: FirebaseFirestore) {
@@ -28,15 +27,18 @@ class GameRepository(private val db: FirebaseFirestore) {
             }
     }
 
-    fun loadHistory(username: String): MutableList<GameListItem> {
-        val games = db.collection(collectionPath)
-        val resultList: MutableList<GameListItem> = ArrayList()
-        val gameQuery = games.whereEqualTo("username", username)
-        gameQuery.get()
+    fun loadHistory(username: String): LiveData<MutableList<GameListItem>> {
+        val resultList: MutableLiveData<MutableList<GameListItem>> = MutableLiveData()
+
+        db.collection(collectionPath).whereEqualTo("username", username).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    var list: MutableList<GameListItem> = ArrayList()
                     task.result?.forEach{
-                        resultList.add(convertJsonToGame(it))}
+                        list.add(convertJsonToGame(it))
+                        Log.i("LoadedHistory", it.data.toString())
+                    }
+                    resultList.value = list
                 } else {
                     Log.e("LoadHistory", task.exception!!.message)
                 }
@@ -44,15 +46,17 @@ class GameRepository(private val db: FirebaseFirestore) {
         return resultList
     }
 
-    fun loadRanking(): MutableList<GameListItem> {
-        val games = db.collection(collectionPath)
-        val resultList: MutableList<GameListItem> = ArrayList()
-        val gameQuery = games.orderBy("flips")
-        gameQuery.get()
+    fun loadRanking(): LiveData<MutableList<GameListItem>> {
+        val resultList: MutableLiveData<MutableList<GameListItem>> = MutableLiveData()
+
+        db.collection(collectionPath).orderBy("flips").get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    var list: MutableList<GameListItem> = ArrayList()
                     task.result?.forEach{
-                        resultList.add(convertJsonToGame(it))}
+                        list.add(convertJsonToGame(it))
+                    }
+                    resultList.value = list
                 } else {
                     Log.e("LoadRanking", task.exception!!.message)
                 }

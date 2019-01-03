@@ -1,5 +1,6 @@
 package ch.stephgit.memory
 
+import android.arch.lifecycle.LiveData
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,7 @@ import android.widget.ListView
 
 class RankingFragment: Fragment() {
 
-    private lateinit var rankingItems: MutableList<GameListItem>
+    private lateinit var rankingItems: LiveData<MutableList<GameListItem>>
 
     companion object {
         fun newFragment(): Fragment = RankingFragment()
@@ -29,7 +30,7 @@ class RankingFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_ranking, container, false)
 
         val lvRanking = view.findViewById<ListView>(R.id.lv_ranking)
-        val customAdapter = GameAdapter(requireContext(), 0, rankingItems)
+        val customAdapter = GameAdapter(requireContext(), 0, rankingItems.value!!)
         lvRanking.adapter = customAdapter
 
         return view
