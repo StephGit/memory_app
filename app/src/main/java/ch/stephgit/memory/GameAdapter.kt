@@ -14,7 +14,7 @@ import java.util.*
 
 data class GameListItem(val userName: String, val date: Date, val flips: Long)
 
-class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: MutableList<GameListItem>):
+class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: List<GameListItem>):
     ArrayAdapter<GameListItem>(context, itemLayoutRes, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

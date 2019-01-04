@@ -27,8 +27,8 @@ class GameRepository(private val db: FirebaseFirestore) {
             }
     }
 
-    fun loadHistory(username: String): LiveData<MutableList<GameListItem>> {
-        val resultList: MutableLiveData<MutableList<GameListItem>> = MutableLiveData()
+    fun loadHistory(username: String): MutableLiveData<List<GameListItem>> {
+        val resultList: MutableLiveData<List<GameListItem>> = MutableLiveData()
 
         db.collection(collectionPath).whereEqualTo("username", username).get()
             .addOnCompleteListener { task ->
@@ -46,8 +46,8 @@ class GameRepository(private val db: FirebaseFirestore) {
         return resultList
     }
 
-    fun loadRanking(): LiveData<MutableList<GameListItem>> {
-        val resultList: MutableLiveData<MutableList<GameListItem>> = MutableLiveData()
+    fun loadRanking(): MutableLiveData<List<GameListItem>> {
+        val resultList: MutableLiveData<List<GameListItem>> = MutableLiveData()
 
         db.collection(collectionPath).orderBy("flips").get()
             .addOnCompleteListener { task ->
