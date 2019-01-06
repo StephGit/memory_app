@@ -1,4 +1,4 @@
-package ch.stephgit.memory.onboarding
+package ch.stephgit.memory.ui.onboarding
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import ch.stephgit.memory.MainActivity
+import ch.stephgit.memory.ui.main.MainActivity
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import com.google.firebase.auth.FirebaseAuth

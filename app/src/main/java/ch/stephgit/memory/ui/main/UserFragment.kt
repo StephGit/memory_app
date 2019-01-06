@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.main
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import ch.stephgit.memory.R
 import com.google.firebase.auth.FirebaseAuth
 
 class UserFragment : Fragment() {
@@ -29,7 +30,7 @@ class UserFragment : Fragment() {
         val ivPicture = view.findViewById<ImageView>(R.id.iv_profile_image)
 
         tvUsername.text = user!!.displayName
-        user.photoUrl.toString()?.let {
+        user.photoUrl.toString().let {
             val byteArray = Base64.decode(it, Base64.DEFAULT)
             val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
             ivPicture.setImageBitmap(bitmap)

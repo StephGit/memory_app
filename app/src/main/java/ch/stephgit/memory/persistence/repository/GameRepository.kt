@@ -1,10 +1,8 @@
 package ch.stephgit.memory.persistence.repository
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.content.ContentValues
 import android.util.Log
-import ch.stephgit.memory.GameListItem
 import ch.stephgit.memory.persistence.entity.Game
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -27,13 +25,13 @@ class GameRepository(private val db: FirebaseFirestore) {
             }
     }
 
-    fun loadHistory(username: String): MutableLiveData<List<GameListItem>> {
-        val resultList: MutableLiveData<List<GameListItem>> = MutableLiveData()
+    fun loadHistory(username: String): MutableLiveData<List<Game>> {
+        val resultList: MutableLiveData<List<Game>> = MutableLiveData()
 
         db.collection(collectionPath).whereEqualTo("username", username).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    var list: MutableList<GameListItem> = ArrayList()
+                    val list: MutableList<Game> = ArrayList()
                     task.result?.forEach{
                         list.add(convertJsonToGame(it))
                         Log.i("LoadedHistory", it.data.toString())
@@ -46,13 +44,13 @@ class GameRepository(private val db: FirebaseFirestore) {
         return resultList
     }
 
-    fun loadRanking(): MutableLiveData<List<GameListItem>> {
-        val resultList: MutableLiveData<List<GameListItem>> = MutableLiveData()
+    fun loadRanking(): MutableLiveData<List<Game>> {
+        val resultList: MutableLiveData<List<Game>> = MutableLiveData()
 
         db.collection(collectionPath).orderBy("flips").get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    var list: MutableList<GameListItem> = ArrayList()
+                    val list: MutableList<Game> = ArrayList()
                     task.result?.forEach{
                         list.add(convertJsonToGame(it))
                     }
@@ -64,12 +62,14 @@ class GameRepository(private val db: FirebaseFirestore) {
         return resultList
     }
 
-    private fun convertJsonToGame(it: QueryDocumentSnapshot?): GameListItem {
+    private fun convertJsonToGame(it: QueryDocumentSnapshot?): Game {
         val map = it?.data
-        return GameListItem(
+        return Game(
             map?.get("username") as String,
             map?.get("date") as Date,
-            map?.get("flips") as Long)
+            map?.get("flips") as Long,
+            it.id
+        )
     }
 
 }

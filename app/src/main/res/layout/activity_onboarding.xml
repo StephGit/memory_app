@@ -7,7 +7,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
 
         android:orientation="vertical"
-        tools:context="ch.stephgit.memory.onboarding.OnboardingActivity"
+        tools:context=".ui.onboarding.OnboardingActivity"
         android:id="@+id/onboarding"
         >
     <!--<android.support.v7.widget.Toolbar android:id="@+id/toolbar"-->

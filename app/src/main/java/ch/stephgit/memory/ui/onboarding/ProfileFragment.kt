@@ -1,28 +1,23 @@
-package ch.stephgit.memory.onboarding
+package ch.stephgit.memory.ui.onboarding
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.util.Base64
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
-import java.io.ByteArrayOutputStream
 import java.io.File
 import android.widget.Toast
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 
 

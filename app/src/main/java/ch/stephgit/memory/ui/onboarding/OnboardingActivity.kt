@@ -1,9 +1,9 @@
-package ch.stephgit.memory.onboarding
+package ch.stephgit.memory.ui.onboarding
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import ch.stephgit.memory.MainActivity
+import ch.stephgit.memory.ui.main.MainActivity
 import ch.stephgit.memory.R
 import com.google.firebase.auth.FirebaseAuth
 

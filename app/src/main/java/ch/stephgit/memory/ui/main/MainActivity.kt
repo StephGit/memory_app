@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import ch.stephgit.memory.GamePlayFlow
+import ch.stephgit.memory.OverlayMessageFragment
+import ch.stephgit.memory.R
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
 
@@ -73,10 +76,10 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
             .commit()
     }
 
-    override fun goToResult(flips: Int) {
+    override fun goToResult(flips: Long) {
 
         val bundle = Bundle()
-        bundle.putInt("flips", flips)
+        bundle.putLong("flips", flips)
         val fragment = OverlayMessageFragment()
         fragment.arguments = bundle
         replaceFragment(fragment)

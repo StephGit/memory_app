@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import ch.stephgit.memory.persistence.entity.Game
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-data class GameListItem(val userName: String, val date: Date, val flips: Long)
-
-class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: List<GameListItem>):
-    ArrayAdapter<GameListItem>(context, itemLayoutRes, items) {
+class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: List<Game>):
+    ArrayAdapter<Game>(context, itemLayoutRes, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
@@ -24,7 +23,7 @@ class GameAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: List<G
 
         val formatDate = SimpleDateFormat("dd.MM.yyyy, HH:mm", Locale.getDefault()).format(item?.date)
 
-        view.findViewById<TextView>(R.id.tvItemText1).text = item?.userName
+        view.findViewById<TextView>(R.id.tvItemText1).text = item?.username
         view.findViewById<TextView>(R.id.tvItemText2).text = formatDate
         view.findViewById<TextView>(R.id.tvItemText3).text = item?.flips.toString()
         return view
