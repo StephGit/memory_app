@@ -77,10 +77,6 @@ class RegistrationFragment: Fragment() {
     private fun registerUser() {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                Toast.makeText( requireContext(),
-                    "createUserWithEmail:onComplete:" + task.isSuccessful,
-                    Toast.LENGTH_SHORT
-                ).show()
                 progressBar.visibility = View.GONE
                 if (task.isSuccessful) {
                     createPlayer(mAuth.currentUser!!)

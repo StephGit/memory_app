@@ -32,6 +32,14 @@ class MemoryApp : Application() {
         this.user = user
     }
 
+    fun isAuthenticated() : Boolean {
+        return (mAuth.currentUser != null)
+    }
+
+    fun logout() {
+        mAuth.signOut()
+    }
+
     fun saveUserInformations(username: String?, image: String?) {
         var img = image
         if (image == null) img = ""

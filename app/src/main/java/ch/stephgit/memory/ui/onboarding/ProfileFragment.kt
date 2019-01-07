@@ -14,10 +14,12 @@ import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import java.io.File
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.storage.FirebaseStorage
 
 
@@ -28,6 +30,7 @@ class ProfileFragment: Fragment()  {
     private val profileImage = "profile_image.png"
     private lateinit var profileImageUrl: String
     private lateinit var ivImage: ImageView
+    private lateinit var progressBar: ProgressBar
 
     companion object {
         fun newFragment(): Fragment = ProfileFragment()
@@ -49,6 +52,7 @@ class ProfileFragment: Fragment()  {
         }
 
         ivImage = view.findViewById(R.id.iv_profile_image)
+        progressBar = view.findViewById(R.id.progressBar)
         return view
     }
 
@@ -84,6 +88,8 @@ class ProfileFragment: Fragment()  {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
+            var uri = Uri.fromFile(File(requireContext().filesDir, profileImage))
+            uploadImageToFirebaseStorage(uri)
             (requireActivity().application as MemoryApp).saveUserInformations(null, profileImageUrl)
             callback.finishOnboarding()
             return true
@@ -100,22 +106,24 @@ class ProfileFragment: Fragment()  {
                 file.outputStream().use { f ->
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, f)
                 }
-                uploadImageToFirebaseStorage(Uri.parse(file.absolutePath))
             }
         }
     }
 
     private fun uploadImageToFirebaseStorage(uri: Uri) {
+        progressBar.visibility = View.VISIBLE
         val profilImageRef =
-            FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg")
+            FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".png")
+        profileImageUrl = profilImageRef.name
 
         profilImageRef.putFile(uri)
-            .addOnSuccessListener { taskSnapshot ->
-                profileImageUrl = taskSnapshot.uploadSessionUri.toString()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-            }
+            .addOnCompleteListener { task ->
+                progressBar.visibility = View.GONE
+                if (task.isSuccessful) {
 
+                } else {
+                    Toast.makeText(requireContext(), task.exception!!.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

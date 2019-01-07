@@ -21,6 +21,11 @@
               android:title="@string/profile"
               android:icon="@drawable/ic_profile"
               app:showAsAction="always"/>
+
+        <item android:id="@+id/nav_action_logout"
+              android:title="@string/logout"
+              android:icon="@drawable/ic_logout"
+              app:showAsAction="always"/>
     </group>
 
 </menu>

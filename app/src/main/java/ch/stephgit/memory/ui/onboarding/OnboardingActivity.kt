@@ -1,5 +1,7 @@
 package ch.stephgit.memory.ui.onboarding
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +13,10 @@ import com.google.firebase.auth.FirebaseAuth
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
     private lateinit var mAuth: FirebaseAuth
+
+    companion object {
+        fun newIntent(ctx: Context) = Intent(ctx, OnboardingActivity::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
