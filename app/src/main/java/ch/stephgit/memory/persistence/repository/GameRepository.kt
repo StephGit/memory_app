@@ -2,10 +2,15 @@ package ch.stephgit.memory.persistence.repository
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import ch.stephgit.memory.persistence.entity.Game
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,18 +52,20 @@ class GameRepository(private val db: FirebaseFirestore) {
     fun loadRanking(): MutableLiveData<List<Game>> {
         val resultList: MutableLiveData<List<Game>> = MutableLiveData()
 
-        db.collection(collectionPath).orderBy("flips").get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val list: MutableList<Game> = ArrayList()
-                    task.result?.forEach{
-                        list.add(convertJsonToGame(it))
-                    }
-                    resultList.value = list
-                } else {
-                    Log.e("LoadRanking", task.exception!!.message)
-                }
+        val docRef = db.collection(collectionPath).orderBy("flips")
+        docRef.addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                return@EventListener
             }
+            if ( value != null) {
+                val list: MutableList<Game> = ArrayList()
+                for (doc in value) {
+                    list.add(convertJsonToGame(doc))
+                }
+                resultList.value = list
+            }
+        })
         return resultList
     }
 
