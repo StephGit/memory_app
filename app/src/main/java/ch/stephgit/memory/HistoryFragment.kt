@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import ch.stephgit.memory.persistence.repository.GameRepository
 
 
 class HistoryFragment: Fragment() {

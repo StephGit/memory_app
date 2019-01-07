@@ -16,6 +16,7 @@ import android.widget.Button
 import android.widget.ImageView
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 
@@ -96,7 +97,9 @@ class ProfileFragment: Fragment()  {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
-            (requireActivity().application as MemoryApp).getCurrentPlayer().image = getProfileImage()
+            val stream = ByteArrayOutputStream()
+            getProfileImage()?.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            (requireActivity().application as MemoryApp).getCurrentPlayer().image = stream.toByteArray().toString()
             callback.finishOnboarding()
             return true
         }

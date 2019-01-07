@@ -6,6 +6,7 @@ import ch.stephgit.memory.persistence.AppDatabase
 import ch.stephgit.memory.persistence.entity.Player
 import ch.stephgit.memory.persistence.repository.GameRepository
 import ch.stephgit.memory.persistence.repository.PlayerRepository
+import ch.stephgit.memory.persistence.service.APIClient
 
 class MemoryApp : Application() {
 
@@ -21,7 +22,7 @@ class MemoryApp : Application() {
             .allowMainThreadQueries()
             .build()
         gameRepository = GameRepository(db)
-        playerRepository = PlayerRepository(db)
+        playerRepository = PlayerRepository()
     }
 
     fun getPlayerRepository() = playerRepository

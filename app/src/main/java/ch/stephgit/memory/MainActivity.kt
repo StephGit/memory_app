@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
             val token = PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null)
-            val id: Long? = token?.substringAfterLast(":")?.toLong()
+            val id: Int? = token?.substringAfterLast(":")?.toInt()
             if (id != null) {
                 player = (application as MemoryApp).getPlayerRepository().findPlayerById(id)
                 (application as MemoryApp).setCurrentPlayer(player)

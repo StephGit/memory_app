@@ -20,9 +20,9 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
         supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
-            startActivity(MainActivity.newIntent(this))
-        }
+//        if (PreferenceManager.getDefaultSharedPreferences(this).getString("KEY_TOKEN", null) != null) {
+//            startActivity(MainActivity.newIntent(this))
+//        }
 
         if (savedInstanceState == null) {
             replaceFragement(OnboardingFragment.newFragment())

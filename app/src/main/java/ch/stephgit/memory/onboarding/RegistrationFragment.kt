@@ -1,6 +1,7 @@
 package ch.stephgit.memory.onboarding
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
@@ -10,6 +11,9 @@ import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Player
 import kotlinx.android.synthetic.main.fragment_registration.*
+import android.os.AsyncTask.execute
+import ch.stephgit.memory.persistence.repository.PlayerRepository
+
 
 class RegistrationFragment: Fragment() {
 
@@ -52,7 +56,8 @@ class RegistrationFragment: Fragment() {
             if (isValid() && isUniqueUser()) {
                 (requireActivity().application as MemoryApp)
                     .setCurrentPlayer(
-                        Player(username.text.toString().trim(), password.text.toString().trim()))
+                        Player(username.text.toString().trim(), password.text.toString().trim())
+                    )
                 callback.goToAgb()
             }
             return true
@@ -61,7 +66,7 @@ class RegistrationFragment: Fragment() {
     }
 
     private fun isUniqueUser(): Boolean {
-        val p = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username.text.toString().trim())
+        val p = UserTask().execute(username.text.toString().trim()).get()
 
         if (p?.id == null) return true
         username.error = "Username is already used"
@@ -86,4 +91,10 @@ class RegistrationFragment: Fragment() {
         }
     }
 
+    private class UserTask : AsyncTask<String, Void, Player>() {
+        override fun doInBackground(vararg params: String?): Player {
+            var playerRepository = PlayerRepository()
+            return playerRepository.findPlayerByUserName(params[0]!!)
+        }
+    }
 }

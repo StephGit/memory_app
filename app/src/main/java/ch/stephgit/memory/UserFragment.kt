@@ -26,7 +26,7 @@ class UserFragment : Fragment() {
 
         tvUsername.text = player.userName
         player.image?.let {
-            ivPicture.setImageBitmap(it)
+//            ivPicture.setImageBitmap(it)
         }
         return view
     }

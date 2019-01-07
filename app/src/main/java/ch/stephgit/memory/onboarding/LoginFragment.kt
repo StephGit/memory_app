@@ -62,8 +62,8 @@ class LoginFragment : Fragment() {
         player = (requireActivity().application as MemoryApp).getPlayerRepository().findPlayerByUserName(username)
 
         if (player?.password != password) {
-            etUsername.error = "Wrong username or password"
-            etPassword.error = "Wrong username or password"
+            etUsername.error = "Wrong userName or password"
+            etPassword.error = "Wrong userName or password"
             return false
         }
         return true
