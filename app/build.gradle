@@ -37,12 +37,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     kapt "android.arch.persistence.room:compiler:1.1.1"
-    // TypeSafe REST Client
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-// JSON Converter
-    implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
-// Image (downloading) library
-    implementation 'com.squareup.picasso:picasso:2.71828'
-// Base library for Retrofit and Picasso
-    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation "com.google.firebase:firebase-core:16.0.6"
+    implementation 'com.google.firebase:firebase-firestore:17.1.5'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-storage:16.0.5'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+
 }
+
+apply plugin: 'com.google.gms.google-services'

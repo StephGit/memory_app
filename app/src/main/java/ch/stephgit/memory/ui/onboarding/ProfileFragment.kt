@@ -1,11 +1,11 @@
-package ch.stephgit.memory.onboarding
+package ch.stephgit.memory.ui.onboarding
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
@@ -14,10 +14,13 @@ import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
-import java.io.ByteArrayOutputStream
 import java.io.File
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.storage.FirebaseStorage
 
 
 class ProfileFragment: Fragment()  {
@@ -25,7 +28,9 @@ class ProfileFragment: Fragment()  {
     private lateinit var callback: OnboardingFlow
 
     private val profileImage = "profile_image.png"
+    private lateinit var profileImageUrl: String
     private lateinit var ivImage: ImageView
+    private lateinit var progressBar: ProgressBar
 
     companion object {
         fun newFragment(): Fragment = ProfileFragment()
@@ -47,22 +52,8 @@ class ProfileFragment: Fragment()  {
         }
 
         ivImage = view.findViewById(R.id.iv_profile_image)
-        val img = getProfileImage()
-        if (img != null) {
-            ivImage.setImageBitmap(img)
-        }
-
+        progressBar = view.findViewById(R.id.progressBar)
         return view
-    }
-
-    private fun getProfileImage() : Bitmap? {
-        val file = File(requireContext().filesDir, profileImage)
-        if (file.exists()) {
-            file.inputStream().use {
-                return BitmapFactory.decodeStream(it)
-            }
-        }
-        return null
     }
 
     private fun takePicture() {
@@ -97,9 +88,9 @@ class ProfileFragment: Fragment()  {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
-            val stream = ByteArrayOutputStream()
-            getProfileImage()?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            (requireActivity().application as MemoryApp).getCurrentPlayer().image = stream.toByteArray().toString()
+            var uri = Uri.fromFile(File(requireContext().filesDir, profileImage))
+            uploadImageToFirebaseStorage(uri)
+            (requireActivity().application as MemoryApp).saveUserInformations(null, profileImageUrl)
             callback.finishOnboarding()
             return true
         }
@@ -117,5 +108,22 @@ class ProfileFragment: Fragment()  {
                 }
             }
         }
+    }
+
+    private fun uploadImageToFirebaseStorage(uri: Uri) {
+        progressBar.visibility = View.VISIBLE
+        val profilImageRef =
+            FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".png")
+        profileImageUrl = profilImageRef.name
+
+        profilImageRef.putFile(uri)
+            .addOnCompleteListener { task ->
+                progressBar.visibility = View.GONE
+                if (task.isSuccessful) {
+
+                } else {
+                    Toast.makeText(requireContext(), task.exception!!.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

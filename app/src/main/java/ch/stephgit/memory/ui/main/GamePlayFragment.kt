@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.main
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import ch.stephgit.memory.GamePlayFlow
+import ch.stephgit.memory.MemoryApp
+import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Game
 import java.util.*
 
@@ -17,7 +20,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
     private lateinit var tvFlips: TextView
     private var cards = mutableMapOf<Button, String>()
-    private var counter = 0
+    private var counter: Long = 0
     private var firstCard: Button? = null
     private var secondCard: Button? = null
     private var matchedCards = mutableListOf<Button>()
@@ -120,7 +123,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
             val app = (requireActivity().application as MemoryApp)
-            app.getGameRepository().saveGame(Game(app.getCurrentPlayer().userName, Date(), counter))
+            app.getGameRepository().saveGame(Game(app.getCurrentUser()!!.displayName!!, Date(), counter))
             callback.goToResult(counter)
         }
     }

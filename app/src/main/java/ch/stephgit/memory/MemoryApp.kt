@@ -1,37 +1,63 @@
 package ch.stephgit.memory
 
 import android.app.Application
-import android.arch.persistence.room.Room
-import ch.stephgit.memory.persistence.AppDatabase
-import ch.stephgit.memory.persistence.entity.Player
+import android.net.Uri
+import android.widget.Toast
 import ch.stephgit.memory.persistence.repository.GameRepository
-import ch.stephgit.memory.persistence.repository.PlayerRepository
-import ch.stephgit.memory.persistence.service.APIClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class MemoryApp : Application() {
 
     private lateinit var gameRepository: GameRepository
-    private lateinit var playerRepository: PlayerRepository
-    private lateinit var player: Player
+    private lateinit var user: FirebaseUser
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate() {
         super.onCreate()
-        val db = Room.databaseBuilder(applicationContext,
-            AppDatabase::class.java,
-            "memory-db3")
-            .allowMainThreadQueries()
-            .build()
-        gameRepository = GameRepository(db)
-        playerRepository = PlayerRepository()
-    }
 
-    fun getPlayerRepository() = playerRepository
+        val db = FirebaseFirestore.getInstance()
+        mAuth = FirebaseAuth.getInstance()
+        gameRepository = GameRepository(db)
+    }
 
     fun getGameRepository() = gameRepository
 
-    fun getCurrentPlayer() = player
+    fun getCurrentUser() = mAuth.currentUser
 
-    fun setCurrentPlayer(player: Player) {
-        this.player = player
+    fun setCurrentUser(user: FirebaseUser) {
+        this.user = user
     }
+
+    fun isAuthenticated() : Boolean {
+        return (mAuth.currentUser != null)
+    }
+
+    fun logout() {
+        mAuth.signOut()
+    }
+
+    fun saveUserInformations(username: String?, image: String?) {
+        var img = image
+        if (image == null) img = ""
+
+
+        val profile = UserProfileChangeRequest.Builder()
+            .setDisplayName(username)
+            .setPhotoUri(Uri.parse(img))
+            .build()
+
+        user.updateProfile(profile)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this.applicationContext, "User updated", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
+    }
+
 }

@@ -1,8 +1,7 @@
-package ch.stephgit.memory.onboarding
+package ch.stephgit.memory.ui.onboarding
 
 interface OnboardingFlow {
 
-    fun goToLogin()
     fun goToRegistration()
     fun goToAgb()
     fun goToProfile()

@@ -1,4 +1,4 @@
-package ch.stephgit.memory.onboarding
+package ch.stephgit.memory.ui.onboarding
 
 import android.content.Context
 import android.os.Bundle
