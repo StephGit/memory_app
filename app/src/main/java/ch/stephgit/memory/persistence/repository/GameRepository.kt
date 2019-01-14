@@ -12,10 +12,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class GameRepository(private val db: FirebaseFirestore) {
+class GameRepository @Inject constructor(private val db: FirebaseFirestore) {
 
     private val collectionPath: String = "game"
 

@@ -17,7 +17,7 @@
                     android:layout_width="48dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="flipCard"
+                    
                     android:background="@drawable/ic_card"
                     android:textSize="24sp"/>
 
@@ -26,7 +26,7 @@
                     android:layout_width="48dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="flipCard"
+                    
                     android:background="@drawable/ic_card"
                     android:textSize="24sp"/>
 
@@ -35,7 +35,7 @@
                     android:layout_width="48dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:onClick="flipCard"
+                    
                     android:background="@drawable/ic_card"
                     android:textSize="24sp"/>
 
@@ -44,7 +44,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -60,7 +60,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -69,7 +69,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -78,7 +78,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -87,50 +87,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -146,7 +103,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -155,7 +112,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -164,7 +121,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -173,50 +130,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                android:background="@drawable/ic_card"
-                android:textSize="24sp"/>
-
-        <Button
-                android:layout_margin="20dp"
-                android:layout_width="48dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -232,7 +146,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -241,7 +155,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -250,7 +164,7 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 
@@ -259,7 +173,93 @@
                 android:layout_width="48dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:onClick="flipCard"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
+                android:background="@drawable/ic_card"
+                android:textSize="24sp"/>
+
+        <Button
+                android:layout_margin="20dp"
+                android:layout_width="48dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                
                 android:background="@drawable/ic_card"
                 android:textSize="24sp"/>
 

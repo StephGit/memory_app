@@ -3,6 +3,7 @@ package ch.stephgit.memory
 import android.app.Application
 import android.net.Uri
 import android.widget.Toast
+import ch.stephgit.memory.di.Injector
 import ch.stephgit.memory.persistence.repository.GameRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -12,19 +13,20 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MemoryApp : Application() {
 
-    private lateinit var gameRepository: GameRepository
+//    private lateinit var gameRepository: GameRepository
     private lateinit var user: FirebaseUser
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate() {
         super.onCreate()
+        Injector.init(this)
 
-        val db = FirebaseFirestore.getInstance()
+//        val db = FirebaseFirestore.getInstance()
         mAuth = FirebaseAuth.getInstance()
-        gameRepository = GameRepository(db)
+//        gameRepository = GameRepository(db)
     }
 
-    fun getGameRepository() = gameRepository
+//    fun getGameRepository() = gameRepository
 
     fun getCurrentUser() = mAuth.currentUser
 
