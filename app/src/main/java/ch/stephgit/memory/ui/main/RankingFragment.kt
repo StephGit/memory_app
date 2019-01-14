@@ -1,11 +1,9 @@
 package ch.stephgit.memory.ui.main
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.support.v4.app.Fragment
-
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +31,9 @@ class RankingFragment: Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_ranking, container, false)
 
-//        val factory = MyViewModelFactory()
-//        val viewModel: RankingViewModel = ViewModelProviders.of(this, factory).get(RankingViewModel::class.java)
+        val factory = MyViewModelFactory()
+        val viewModel: RankingViewModel = ViewModelProviders.of(this, factory).get(RankingViewModel::class.java)
 
-        val viewModel = RankingViewModel(activity!!.application)
         viewModel.gameItem.observe(this, Observer {
             val lvRanking = view.findViewById<ListView>(R.id.lv_ranking)
             val customAdapter = GameAdapter(requireContext(), 0, it!!)

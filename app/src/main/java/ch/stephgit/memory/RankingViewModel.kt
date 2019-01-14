@@ -16,7 +16,7 @@ class RankingViewModel: ViewModel() {
     val gameItem: MutableLiveData<List<Game>>
 
     init {
-        Injector.appComponent.inject(FirebaseFirestore.getInstance())
+        Injector.appComponent.inject(this)
         gameItem = gameRepository.loadRanking()
 
     }

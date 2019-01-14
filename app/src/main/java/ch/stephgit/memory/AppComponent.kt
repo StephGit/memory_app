@@ -13,9 +13,9 @@ interface AppComponent {
 
     @Component.Builder
     interface Builder {
-        @BindsInstance
+        @BindsInstance // Dagger injects in DependencyGraph
         fun application(application: Application): Builder
         fun build(): AppComponent
     }
-    fun inject(db: FirebaseFirestore)
+    fun inject(rankingViewModel: RankingViewModel)
 }
