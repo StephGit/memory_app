@@ -5,14 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import ch.stephgit.memory.ui.main.MainActivity
 import ch.stephgit.memory.R
-import com.google.firebase.auth.FirebaseAuth
+import ch.stephgit.memory.di.Injector
+import ch.stephgit.memory.ui.main.MainActivity
+import com.google.common.base.Optional
+import com.google.firebase.auth.FirebaseUser
+import javax.inject.Inject
 
 
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
-    private lateinit var mAuth: FirebaseAuth
+    @Inject
+    lateinit var currentUser: Optional<FirebaseUser>
 
     companion object {
         fun newIntent(ctx: Context) = Intent(ctx, OnboardingActivity::class.java)
@@ -20,15 +24,12 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Injector.appComponent.inject(this)
         setContentView(R.layout.activity_onboarding)
         supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
-        mAuth = FirebaseAuth.getInstance()
-
-        if (mAuth.currentUser != null) {
-            startActivity(MainActivity.newIntent(this))
-        }
+        if (currentUser.isPresent) startActivity(MainActivity.newIntent(this))
 
         if (savedInstanceState == null) {
             replaceFragement(LoginFragment.newFragment())

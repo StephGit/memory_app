@@ -1,15 +1,13 @@
 package ch.stephgit.memory.di
 
 import android.app.Application
-import ch.stephgit.memory.AppComponent
-import ch.stephgit.memory.DaggerAppComponent
+import ch.stephgit.memory.di.DaggerAppComponent.*
 
 
 object Injector {
     lateinit var appComponent : AppComponent
     fun init(application: Application) {
-        appComponent = DaggerAppComponent
-            .builder()
+        appComponent = builder()
             .application(application)
             .build()
     }

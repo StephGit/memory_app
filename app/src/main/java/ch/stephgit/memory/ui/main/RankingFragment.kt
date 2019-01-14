@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import ch.stephgit.memory.GameAdapter
-import ch.stephgit.memory.MyViewModelFactory
 import ch.stephgit.memory.R
-import ch.stephgit.memory.RankingViewModel
+import ch.stephgit.memory.ui.viewmodel.RankingViewModel
+import ch.stephgit.memory.ui.viewmodel.ViewModelFactory
 
 class RankingFragment: Fragment() {
 
@@ -19,19 +18,13 @@ class RankingFragment: Fragment() {
         fun newFragment(): Fragment = RankingFragment()
     }
 
-//    override fun onAttach(context: Context?) {
-//        super.onAttach(context)
-//        callback = context as? OnboardingFlow ?: throw RuntimeException("Missing OnbordingFlow implementation")
-//    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         activity?.title= "Ranking"
 
         val view = inflater.inflate(R.layout.fragment_ranking, container, false)
 
-        val factory = MyViewModelFactory()
+        val factory = ViewModelFactory()
         val viewModel: RankingViewModel = ViewModelProviders.of(this, factory).get(RankingViewModel::class.java)
 
         viewModel.gameItem.observe(this, Observer {

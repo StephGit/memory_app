@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.main
 
 import android.content.Context
 
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import ch.stephgit.memory.R
 import ch.stephgit.memory.persistence.entity.Game
 import java.text.SimpleDateFormat
 import java.util.*

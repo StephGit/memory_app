@@ -1,6 +1,7 @@
 package ch.stephgit.memory.ui.onboarding
 
 import android.app.Activity.RESULT_OK
+import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,15 +16,24 @@ import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
-import java.io.File
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import ch.stephgit.memory.di.Injector
+import ch.stephgit.memory.persistence.repository.ImageRepository
+import ch.stephgit.memory.persistence.repository.UserRepository
 import com.google.firebase.storage.FirebaseStorage
+import java.io.File
+import javax.inject.Inject
 
 
 class ProfileFragment: Fragment()  {
+
+    @Inject
+    lateinit var imageRepository: ImageRepository
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     private lateinit var callback: OnboardingFlow
 
@@ -43,6 +53,7 @@ class ProfileFragment: Fragment()  {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Injector.appComponent.inject(this)
         setHasOptionsMenu(true)
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
@@ -89,8 +100,8 @@ class ProfileFragment: Fragment()  {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_next) {
             var uri = Uri.fromFile(File(requireContext().filesDir, profileImage))
-            uploadImageToFirebaseStorage(uri)
-            (requireActivity().application as MemoryApp).saveUserInformations(null, profileImageUrl)
+            uploadImage(uri)
+            userRepository.saveUserInformations(null, profileImageUrl)
             callback.finishOnboarding()
             return true
         }
@@ -110,20 +121,14 @@ class ProfileFragment: Fragment()  {
         }
     }
 
-    private fun uploadImageToFirebaseStorage(uri: Uri) {
+    private fun uploadImage(uri: Uri) {
         progressBar.visibility = View.VISIBLE
-        val profilImageRef =
-            FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".png")
-        profileImageUrl = profilImageRef.name
+        imageRepository.storeImage(uri).observe(this, Observer {
+            // TODO evaluate erros
+//            Toast.makeText(requireContext(), task.exception!!.message, Toast.LENGTH_SHORT).show()
+            profileImageUrl = it!!
+            progressBar.visibility = View.GONE
+        })
 
-        profilImageRef.putFile(uri)
-            .addOnCompleteListener { task ->
-                progressBar.visibility = View.GONE
-                if (task.isSuccessful) {
-
-                } else {
-                    Toast.makeText(requireContext(), task.exception!!.message, Toast.LENGTH_SHORT).show()
-                }
-            }
     }
 }

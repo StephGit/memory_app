@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.main
 
 interface GamePlayFlow {
 

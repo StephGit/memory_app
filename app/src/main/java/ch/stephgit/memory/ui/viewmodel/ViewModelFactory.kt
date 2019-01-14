@@ -1,10 +1,10 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 
 
-//class MyViewModelFactory @Inject constructor(
+//class ViewModelFactory @Inject constructor(
 //    private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelProvider.Factory {
 //
 //    @Suppress("UNCHECKED_CAST")
@@ -27,11 +27,15 @@ import android.arch.lifecycle.ViewModelProvider
 //    }
 //}
 //
-class MyViewModelFactory: ViewModelProvider.Factory {
+// TODO dependencies over map not inject here
+
+
+class ViewModelFactory: ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
+            HistoryViewModel::class.java -> HistoryViewModel()
             RankingViewModel::class.java -> RankingViewModel()
             else -> throw IllegalStateException("ViewModel not found")
         } as T

@@ -9,14 +9,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import ch.stephgit.memory.GamePlayFlow
-import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
+import ch.stephgit.memory.di.Injector
 import ch.stephgit.memory.persistence.entity.Game
+import ch.stephgit.memory.persistence.repository.GameRepository
+import com.google.firebase.auth.FirebaseUser
 import java.util.*
+import javax.inject.Inject
 
 class GamePlayFragment: Fragment(), View.OnClickListener {
 
+    @Inject
+    lateinit var gameRepository: GameRepository
+
+    @Inject
+    lateinit var currentUser: Optional<FirebaseUser>
 
     private lateinit var tvFlips: TextView
     private var cards = mutableMapOf<Button, String>()
@@ -32,6 +39,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     }
 
     override fun onAttach(context: Context?) {
+        Injector.appComponent.inject(this)
         super.onAttach(context)
         callback = context as? GamePlayFlow ?: throw RuntimeException("Missing GamePlayFlow implementation")
     }
@@ -122,8 +130,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
-            val app = (requireActivity().application as MemoryApp)
-            app.getGameRepository().saveGame(Game(app.getCurrentUser()!!.displayName!!, Date(), counter))
+            gameRepository.saveGame(Game(currentUser.get().displayName.toString(), Date(), counter))
             callback.goToResult(counter)
         }
     }

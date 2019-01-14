@@ -6,19 +6,19 @@ import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.Toast
-import ch.stephgit.memory.MemoryApp
 import ch.stephgit.memory.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
+import ch.stephgit.memory.di.Injector
+import ch.stephgit.memory.persistence.repository.UserRepository
 import kotlinx.android.synthetic.main.fragment_registration.*
+import javax.inject.Inject
 
 
 class RegistrationFragment: Fragment() {
 
+    @Inject
+    lateinit var userRepository: UserRepository
+
     private lateinit var callback: OnboardingFlow
-    private lateinit var mAuth: FirebaseAuth
 
     private lateinit var etUsername: EditText
     private lateinit var etEmail: EditText
@@ -39,6 +39,7 @@ class RegistrationFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Injector.appComponent.inject(this)
         setHasOptionsMenu(true)
 
         val view = inflater.inflate(R.layout.fragment_registration, container, false)
@@ -47,8 +48,6 @@ class RegistrationFragment: Fragment() {
         etEmail = view.findViewById(R.id.et_email)
         etPassword = view.findViewById(R.id.et_password)
         progressBar = view.findViewById(R.id.progressBar)
-
-        mAuth = FirebaseAuth.getInstance()
 
         return view
     }
@@ -67,39 +66,41 @@ class RegistrationFragment: Fragment() {
                 password = etPassword.text.toString().trim()
 
                 progressBar.visibility = View.VISIBLE
-                registerUser()
+                // TODO use UserViewModel
+                userRepository.registerUser(email, password, username)
+                callback.goToAgb()
             }
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun registerUser() {
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                progressBar.visibility = View.GONE
-                if (task.isSuccessful) {
-                    createPlayer(mAuth.currentUser!!)
-                    callback.goToAgb()
-                } else {
-                    if (task.exception is FirebaseAuthUserCollisionException) {
-                        Toast.makeText(
-                            requireContext(),
-                            "You are already register. Please log in.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(requireContext(), task.exception!!.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-    }
+//    private fun registerUser() {
+//        mAuth.createUserWithEmailAndPassword(email, password)
+//            .addOnCompleteListener { task ->
+//                progressBar.visibility = View.GONE
+//                if (task.isSuccessful) {
+//                    createPlayer(mAuth.currentUser!!)
+//                    callback.goToAgb()
+//                } else {
+//                    if (task.exception is FirebaseAuthUserCollisionException) {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "You are already register. Please log in.",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    } else {
+//                        Toast.makeText(requireContext(), task.exception!!.message, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//    }
 
-    private fun createPlayer(currentUser: FirebaseUser) {
-        val app = (requireActivity().application as MemoryApp)
-        app.setCurrentUser(currentUser)
-        app.saveUserInformations(username, null)
-    }
+//    private fun createPlayer(currentUser: FirebaseUser) {
+//        val app = (requireActivity().application as MemoryApp)
+////        app.setCurrentUser(currentUser)
+//        app.saveUserInformations(username, null)
+//    }
 
 
     private fun isValid(): Boolean {

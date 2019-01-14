@@ -1,4 +1,4 @@
-package ch.stephgit.memory
+package ch.stephgit.memory.ui.main
 
 import android.arch.lifecycle.MutableLiveData
 
@@ -9,7 +9,7 @@ class AbsentLiveData<T> private constructor() : MutableLiveData<T>() {
 
     companion object {
         fun <T> create(): MutableLiveData<T> {
-            return  AbsentLiveData()
+            return AbsentLiveData()
         }
     }
 }

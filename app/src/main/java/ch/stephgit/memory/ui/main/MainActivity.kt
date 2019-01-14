@@ -9,13 +9,16 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import ch.stephgit.memory.GamePlayFlow
-import ch.stephgit.memory.MemoryApp
-import ch.stephgit.memory.OverlayMessageFragment
 import ch.stephgit.memory.R
+import ch.stephgit.memory.di.Injector
+import ch.stephgit.memory.persistence.repository.UserRepository
 import ch.stephgit.memory.ui.onboarding.OnboardingActivity
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), GamePlayFlow {
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     private lateinit var navigationView: NavigationView
     private lateinit var drawLayout: DrawerLayout
@@ -26,8 +29,8 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val app: MemoryApp = (application as MemoryApp)
-        if (app.isAuthenticated()) {
+        Injector.appComponent.inject(this)
+        if (userRepository.getCurrentUser() != null) {
 
             setContentView(R.layout.activity_main)
 
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
                         R.id.nav_action_ranking -> replaceFragment(RankingFragment.newFragment())
                         R.id.nav_action_profile -> replaceFragment(UserFragment.newFragment())
                         R.id.nav_action_logout -> {
-                            app.logout()
+                            userRepository.logout()
                             startActivity(OnboardingActivity.newIntent(this))
                         }
                     }
