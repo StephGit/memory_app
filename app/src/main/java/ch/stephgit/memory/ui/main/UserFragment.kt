@@ -11,14 +11,13 @@ import android.widget.TextView
 import ch.stephgit.memory.R
 import ch.stephgit.memory.di.Injector
 import ch.stephgit.memory.persistence.repository.ImageRepository
-import com.google.common.base.Optional
-import com.google.firebase.auth.FirebaseUser
+import ch.stephgit.memory.persistence.repository.UserRepository
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
 
     @Inject
-    lateinit var currentUser: Optional<FirebaseUser>
+    lateinit var userRepository: UserRepository
 
     @Inject
     lateinit var imageRepository: ImageRepository
@@ -38,11 +37,11 @@ class UserFragment : Fragment() {
         val tvUsername = view.findViewById<TextView>(R.id.tv_username)
         ivPicture = view.findViewById(R.id.iv_profile_image)
 
-        if (currentUser.isPresent) {
+        if (userRepository.getUser() != null) {
 
 
-            tvUsername.text = currentUser.get().displayName
-            currentUser.get().photoUrl.let {
+            tvUsername.text = userRepository.getUserName()
+            userRepository.getPhotoUrl().let {
                 imageRepository.loadImage(it.toString())
                     .observe(this, Observer { pic ->
                         ivPicture.setImageBitmap(pic)

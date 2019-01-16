@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import ch.stephgit.memory.di.Injector
+import ch.stephgit.memory.di.User
 import ch.stephgit.memory.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -20,9 +21,10 @@ class UserRepository @Inject constructor(private val auth: FirebaseAuth) {
         Injector.appComponent.inject(this)
     }
 
-    fun getCurrentUser() : FirebaseUser? {
-        return auth.currentUser
-    }
+    fun getUserId(): String = auth.currentUser?.uid ?: ""
+    fun getUserName(): String = auth.currentUser?.displayName ?: ""
+    fun getUser(): Any? = auth.currentUser
+    fun getPhotoUrl() : Uri? = auth.currentUser?.photoUrl
 
     fun logout() {
         auth.signOut()

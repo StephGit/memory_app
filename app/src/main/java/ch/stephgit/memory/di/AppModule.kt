@@ -13,7 +13,11 @@ import com.google.firebase.storage.FirebaseStorage
 import dagger.BindsOptionalOf
 import dagger.Module
 import dagger.Provides
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier annotation class User
+
 
 @Module
 class AppModule {
@@ -34,14 +38,15 @@ class AppModule {
     @Singleton
     fun provideFirebaseAuth() : FirebaseAuth = FirebaseAuth.getInstance()
 
-    @BindsOptionalOf
-    fun provideCurrentUser(auth: FirebaseAuth) : FirebaseUser? {
-        if (auth.currentUser != null) {
-            return auth.currentUser!!
-        } else {
-            return null
-        }
-    }
+//    @Provides
+//    @User
+//    fun provideCurrentUser(auth: FirebaseAuth) : FirebaseUser? {
+//        return if (auth.currentUser != null) {
+//            auth.currentUser!!
+//        } else {
+//            null
+//        }
+//    }
 
     @Provides
     @Singleton

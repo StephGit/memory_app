@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import ch.stephgit.memory.R
 import ch.stephgit.memory.di.Injector
+import ch.stephgit.memory.di.User
+import ch.stephgit.memory.persistence.repository.UserRepository
 import ch.stephgit.memory.ui.main.MainActivity
 import com.google.common.base.Optional
 import com.google.firebase.auth.FirebaseUser
@@ -16,7 +18,7 @@ import javax.inject.Inject
 class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
 
     @Inject
-    lateinit var currentUser: Optional<FirebaseUser>
+    lateinit var userRepository: UserRepository
 
     companion object {
         fun newIntent(ctx: Context) = Intent(ctx, OnboardingActivity::class.java)
@@ -29,7 +31,7 @@ class OnboardingActivity: AppCompatActivity(), OnboardingFlow {
         supportActionBar?.title = "Memory"
         invalidateOptionsMenu()
 
-        if (currentUser.isPresent) startActivity(MainActivity.newIntent(this))
+        if ( userRepository.getUser() != null ) startActivity(MainActivity.newIntent(this))
 
         if (savedInstanceState == null) {
             replaceFragement(LoginFragment.newFragment())

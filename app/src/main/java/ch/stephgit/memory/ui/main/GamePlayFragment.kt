@@ -13,7 +13,7 @@ import ch.stephgit.memory.R
 import ch.stephgit.memory.di.Injector
 import ch.stephgit.memory.persistence.entity.Game
 import ch.stephgit.memory.persistence.repository.GameRepository
-import com.google.firebase.auth.FirebaseUser
+import ch.stephgit.memory.persistence.repository.UserRepository
 import java.util.*
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
     lateinit var gameRepository: GameRepository
 
     @Inject
-    lateinit var currentUser: Optional<FirebaseUser>
+    lateinit var userRepository: UserRepository
 
     private lateinit var tvFlips: TextView
     private var cards = mutableMapOf<Button, String>()
@@ -130,7 +130,7 @@ class GamePlayFragment: Fragment(), View.OnClickListener {
 
     private fun validateGame() {
         if (matchedCards.count() == cards.count()) {
-            gameRepository.saveGame(Game(currentUser.get().displayName.toString(), Date(), counter))
+            gameRepository.saveGame(Game(userRepository.getUserName(), Date(), counter))
             callback.goToResult(counter)
         }
     }

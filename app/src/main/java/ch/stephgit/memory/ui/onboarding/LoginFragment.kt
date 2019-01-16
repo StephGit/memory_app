@@ -43,9 +43,7 @@ class LoginFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        if (userRepository.getCurrentUser() != null) {
-            startActivity(MainActivity.newIntent(requireContext()))
-        }
+        if (userRepository.getUser() != null) startActivity(MainActivity.newIntent(requireContext()))
 
         etEmail = view.findViewById(R.id.et_email)
         etPassword = view.findViewById(R.id.et_password)

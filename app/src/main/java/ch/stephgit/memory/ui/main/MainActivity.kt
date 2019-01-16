@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), GamePlayFlow {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.appComponent.inject(this)
-        if (userRepository.getCurrentUser() != null) {
+        if (userRepository.getUser() != null) {
 
             setContentView(R.layout.activity_main)
 
